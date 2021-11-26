@@ -6,7 +6,8 @@ const logoutRoutes = require('./logout');
 const privateRoutes = require('./private');
 
 const constructorMethod = (app) => {
-  app.use('/', mainRoutes);
+  app.use('/', mainRoutes)
+  app.use('/author', authorRoutes);
   app.use('/login', loginRoutes);
   app.use('/signup', signupRoutes);
   app.use('/logout', logoutRoutes);

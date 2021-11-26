@@ -1,0 +1,38 @@
+<main
+
+  <h1>Signup Here</h1>
+  <form action="/author_signup" method="POST" class="author-signup-form" id="author-signup-form">
+    <label for="email">
+      Email
+      <input type="text" name="email" id="email" placeholder="Enter Your Email" class="full-width-input" />
+    </label>
+    <label for="password">
+      Password
+      <input type="password" name="password" id="password" placeholder="Enter The Passsword" class="full-width-input" />
+    </label>
+    <br><br><br><button type="submit">Submit</button>
+    <br><br><br><button type="reset">Clear</button>
+  </form>
+<footer>
+  <nav>
+        <ul>
+            <li><a href="/">Already have an account? Click here to log-in</a></li>
+        </ul>
+</nav>
+</footer>
+{{#if notString}}
+<p class="error">Either ussername/password not in correct format. Username should be atleast 4 characters and password should be atleast 6 characters both without any spaces.</p>
+{{/if}}
+{{#if unError}}
+<p class="error">Username should be atleast 4 characters without any spaces.</p>
+{{/if}}
+{{#if pwError}}
+<p class="error">Password should be atleast 6 characters without any spaces.</p>
+{{/if}}
+{{#if isEmptyUn}}
+<p class="error">Enter username.</p>
+{{/if}}
+{{#if isEmptyPw}}
+<p class="error">Enter password.</p>
+{{/if}}
+</main>
