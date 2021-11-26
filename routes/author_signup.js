@@ -75,7 +75,7 @@ async function check(str, res){
           }
           if(bool1['userInserted']===true){
             console.log('Success !!!')
-            res.redirect('/author')
+            res.redirect('/author_login')
           }
           
       } catch (e) {
