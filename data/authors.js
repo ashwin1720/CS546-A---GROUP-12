@@ -1,7 +1,6 @@
 const mongoCollections = require('./../config/mongoCollections');
 
-const users = mongoCollections.users;
-//const u = mongoCollections.users
+const authors = mongoCollections.authors;
 let { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
@@ -11,12 +10,10 @@ async function createUser(username, password){
     let trueObj = {userInserted: true}
     username=username.trim()
     password=password.trim()
-    console.log(username)
-    console.log(password)
-    const usersColl = await users();
-    const usersList = await usersColl.find({}).toArray();
-    for(let i=0;i<usersList.length;i++){
-        if(usersList[i].username === username) throw 'Error: Username Already Exists.'
+    const authorsColl = await authors();
+    const authorsList = await authorsColl.find({}).toArray();
+    for(let i=0;i<authorsList.length;i++){
+        if(authorsList[i].username === username) throw 'Error: Author Already Exists.'
     }
     const hash = await bcrypt.hash(password, saltRounds);
     let newUser = {
