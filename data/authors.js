@@ -10,8 +10,6 @@ async function createUser(username, password){
     let trueObj = {userInserted: true}
     username=username.trim()
     password=password.trim()
-    console.log(username)
-    console.log(password)
     const authorsColl = await authors();
     const authorsList = await authorsColl.find({}).toArray();
     for(let i=0;i<authorsList.length;i++){
