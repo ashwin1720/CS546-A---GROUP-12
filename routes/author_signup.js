@@ -26,11 +26,21 @@ async function check(str, res){
   }
 
   router.get('/', async (req, res) => {
-    if (req.session.user) {
-        res.redirect('/private');
-      } else {
-        res.render('users/author_signup',{titleName:'Signup'})
+    // if (!req.session.user && !req.session.user.usertype ==="author") {
+    //     res.redirect('/author_index',{titleName:'Author Main Page'});
+    //   } else {
+    //     res.render('users/author_signup',{titleName:'Signup'})
+    //   }
+
+    try {
+      if(!req.session.user){
+        return res.render('users/author_signup',{titleName:'Author Signup'})
+      }if(req.session.user && req.session.user.usertype ==="author"){
+        return res.render('users/author_index',{titleName:'Author Main Page'})
       }
+     } catch (error) {
+      res.status(500).json({error:error})
+    }
   });
 
   router.post('/', async (req, res) => {

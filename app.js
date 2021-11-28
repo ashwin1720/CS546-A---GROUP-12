@@ -21,7 +21,7 @@ app.use(
   session({
     name: 'AuthCookie',
     secret: "This is a secret.. shhh don't tell anyone",
-    saveUninitialized: true,
+    saveUninitialized: false,
     resave: false,
     cookie: { maxAge: 60000 }
   })
@@ -35,6 +35,55 @@ app.use(
 //     next();
 //   }
 // });
+app.use('/', (req, res, next) => {
+  if (req.session.user && req.session.user.usertype === "author") {
+    return res.render('users/author_index')
+  }if(req.session.user && req.session.user.usertype === "customer"){
+    return res.render('users/customer_index')
+  }
+   else {
+    next();
+  }
+});
+
+app.use('/author_index', (req, res, next) => {
+  if (!req.session.user) {
+    res.statusCode =403;
+    return res.render('users/author_login')
+  } else {
+    next();
+  }
+});
+
+app.use('/customer_index', (req, res, next) => {
+  if (!req.session.user) {
+    res.statusCode =403;
+    return res.render('users/customer_login')
+  } else {
+    next();
+  }
+});
+
+app.use('/author_login', (req, res, next) => {
+  
+  if (req.session.user) {
+    // console.log(req.session.user)
+    return res.redirect('/author_index');
+  } else {
+   req.method= 'POST'
+   next();
+    
+  }
+});
+
+app.use('/author_signup',(req,res,next) =>{
+  if(req.session.user){
+    return res.redirect('/author_index')
+  }else{
+    next()
+  }
+})
+
 
 
 configRoutes(app);
