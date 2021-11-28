@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 const mongoCollections = require('./../config/mongoCollections');
 
 const authors = mongoCollections.authors;
+=======
+const mongoCollections = require('../config/mongoCollections')
+const users = mongoCollections.authors;
+//const u = mongoCollections.users
+>>>>>>> a8c39fe (init)
 let { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
@@ -29,6 +35,61 @@ async function createUser(username, password){
         return false; 
     }
 }
+
+async function checkUser(username,password){
+
+    if(!username || !password) throw 'username and password must be provided'
+    if(username.length  < 4) throw 'username should be atleast 4 characters long'
+
+    if(hasWhiteSpace(username)){
+        throw'username cannot have spaces'
+        
+      } 
+      if(hasWhiteSpace(password)){
+       throw 'password should not contain spaces'
+        
+      } 
+      function hasWhiteSpace(s) {
+        return /\s/g.test(s);
+       }
+
+       let usernameLower = username.toLowerCase();
+
+       if (!usernameLower.match(/^[0-9a-z]+$/)){
+        throw 'username should be alphanumeric'
+         
+       } 
+       if(password.length<6){
+       throw 'password should be atleast 6 characters'
+         } 
+
+         const userCollection = await users();
+
+         const userInfo = await  userCollection.findOne({username:username})
+
+         if(userInfo === null) throw 'Either the username or password is invalid'
+
+         const userFind = await userCollection .findOne(
+            { username : usernameLower },
+              {projection:{username:1 , password:1}}
+        );
+
+        let compareToMatch = false;
+
+        compareToMatch = await bcrypt.compare(password, userFind.password);
+
+        if(!compareToMatch){
+            throw 'Either the username or password is invalid'
+          }
+
+          let ret ={}
+    ret.authenticated = true
+
+    return ret
+
+
+}
 module.exports = {
-    createUser
+    createUser,
+    checkUser
 }
