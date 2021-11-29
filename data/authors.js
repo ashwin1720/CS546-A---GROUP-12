@@ -1,12 +1,12 @@
-<<<<<<< HEAD
+
 const mongoCollections = require('./../config/mongoCollections');
 
 const authors = mongoCollections.authors;
-=======
-const mongoCollections = require('../config/mongoCollections')
+
+
 const users = mongoCollections.authors;
 //const u = mongoCollections.users
->>>>>>> a8c39fe (init)
+
 let { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
