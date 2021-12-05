@@ -9,12 +9,12 @@ const upload = require('express-handlebars')
 
 router.get('/', async (req, res) => {
     try {
-        // if(!req.session.user){
-        //     return res.render('users/author_signup',{titleName:'Author Signup'})
-        //   }if(req.session.user && req.session.user.usertype ==="author"){
-        //     return res.render('users/author_upload',{titleName:'Author Main Page'})
-        //   }
-       return res.render('users/author_upload')
+        if(!req.session.user){
+            return res.render('users/author_login',{titleName:'Author Login'})
+          }if(req.session.user && req.session.user.usertype ==="author"){
+            return res.render('users/author_upload', {titleName: 'Author Upload'})
+          }
+       
      
     } catch (error) {
       res.status(500).json({error:error})
