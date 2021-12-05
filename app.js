@@ -29,54 +29,31 @@ app.use(
   })
 );
 
-// app.use('/private', (req, res, next) => {
-  
-//   if (!req.session.user) {
-//     res.status(403).render('users/notlogged')
-//   } else {
-//     next();
-//   }
-// });
-app.use('/', (req, res, next) => {
-  if (req.session.user && req.session.user.usertype === "author") {
-    return res.render('users/author_index')
-  }if(req.session.user && req.session.user.usertype === "customer"){
-    return res.render('users/customer_index')
-  }
-   else {
-    next();
-  }
-});
 
-app.use('/author_index', (req, res, next) => {
-  if (!req.session.user) {
-    res.statusCode =403;
-    return res.render('users/author_login')
-  } else {
-    next();
-  }
-});
+
+
 
 app.use('/customer_index', (req, res, next) => {
   if (!req.session.user) {
     res.statusCode =403;
-    return res.render('users/customer_login')
+    return res.redirect('/customer_login')
   } else {
     next();
   }
 });
 
-app.use('/author_login', (req, res, next) => {
+
+app.use('/author_index', (req, res, next) => {
   
-  if (req.session.user) {
-    // console.log(req.session.user)
-    return res.redirect('/author_index');
-  } else {
-   req.method= 'POST'
-   next();
-    
+  if (!req.session.user) {
+    return res.redirect('/');
+  } 
+   else{
+    next();
   }
 });
+
+
 
 app.use('/author_signup',(req,res,next) =>{
   if(req.session.user){

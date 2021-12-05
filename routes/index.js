@@ -7,8 +7,8 @@ const customerSignupRoutes = require('./customer_signup')
 const authorIndexRoutes = require('./author_index')
 const authorUploadRoutes = require('./author_upload')
 
- 
-// const logoutRoutes = require('./logout');
+
+
 
 const constructorMethod = (app) => {
   app.use('/', landingRoutes)
@@ -19,7 +19,6 @@ const constructorMethod = (app) => {
   app.use('/author_index',authorIndexRoutes)
   app.use('/author_upload', authorUploadRoutes)
   
-  // app.use('/logout', logoutRoutes);
   
   
 
