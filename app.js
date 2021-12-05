@@ -5,9 +5,11 @@ const static = express.static(__dirname + '/public');
 const configRoutes = require('./routes');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
+const upload = require('express-fileupload')
 
+
+app.use(upload())
 app.use(express.json());
-
 app.use('/public', static);
 app.use(express.urlencoded({ extended: true }));
 
@@ -85,7 +87,7 @@ app.use('/author_signup',(req,res,next) =>{
 })
 
 
-
+//app.use(upload());
 configRoutes(app);
 
 app.listen(3000, () => {

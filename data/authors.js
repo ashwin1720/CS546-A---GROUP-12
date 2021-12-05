@@ -1,12 +1,7 @@
-
 const mongoCollections = require('./../config/mongoCollections');
 
 const authors = mongoCollections.authors;
-
-
-const users = mongoCollections.authors;
-//const u = mongoCollections.users
-
+const books = mongoCollections.books;
 let { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
@@ -86,6 +81,30 @@ async function checkUser(username,password){
     ret.authenticated = true
 
     return ret
+
+
+}
+
+async function createBook(name, authorName, authorUserName, price, description, category, silename){
+
+    revArray = []
+    const booksColl = await books();
+    let newBook = {
+        name: name,
+        authorName: authorName,
+        authorUserName: authorUserName,
+        numberOfPurchase: 0,
+        price: price,
+        description: description,
+        category: category,
+        reviews: revArray,
+        filename: filename
+    };
+    const insertInfo = await booksColl.insertOne(newBook)
+    if(insertInfo.insertedCount!== 0){
+        const newId= insertInfo.insertedId;
+        return trueObj;
+    }
 
 
 }
