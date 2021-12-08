@@ -1,7 +1,21 @@
+<p>Create new book</p>
+
+<header>
+    <nav>   
+        <a href="/author_index"></a>
+        <ul>
+           <li>  <a href="/author_index">My books</a> </li> 
+           <li> <a href="/author_index/author_upload">Add new book</a></li>
+            <li> <a href="/author_index/author_update_personal_details"> Update Personal Details</a></li>
+        </ul>
+    </nav>
+
+</header>
+
 <main>
 
     <h1 class="text-center display-4 my-4">Book Upload Page</h1>
-        <form action="/author_upload" method="POST" enctype="multipart/form-data">
+        <form action="/author_index/author_upload" method="POST" enctype="multipart/form-data">
           <div class="custom-file mb-3">
             <label for="file" class="custom-file-label">Choose File</label>
             <input type="file" name="file" id="file" class="custom-file-input">

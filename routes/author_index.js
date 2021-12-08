@@ -1,14 +1,22 @@
 const express = require('express');
 const router = express.Router();
 
+const data = require('../data');
+const bookListData = data.authors;
+
 //display all books here
 router.get('/', async (req, res) => {
     try {
       // console.log(req.session.user.username)
       // console.log(req.session.user.usertype)
       if(req.session.user && req.session.user.usertype === "author"){
+
+        let bookData = await  bookListData.getAllBooksByAuthor(req.session.user.username)
+
+
         return res.render('users/author_index',{username:req.session.user.username,
           usertype:req.session.user.usertype,
+          bookLists:bookData.info,
           titleName:'Author Main Page'})
       }
       else{
@@ -49,6 +57,10 @@ router.get('/', async (req, res) => {
       res.status(500).json({error:error})
     }
   });
+
+
+
+
   
 
 

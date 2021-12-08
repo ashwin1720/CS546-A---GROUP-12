@@ -21,7 +21,7 @@ async function createUser(username, password){
         username: username,
         password: hash
     };
-    const insertInfo = await usersColl.insertOne(newUser)
+    const insertInfo = await authorsColl.insertOne(newUser)
     if(insertInfo.insertedCount!== 0){
         const newId= insertInfo.insertedId;
         return trueObj;
@@ -58,13 +58,13 @@ async function checkUser(username,password){
        throw 'password should be atleast 6 characters'
          } 
 
-         const userCollection = await users();
+         const authorCollection = await authors();
 
-         const userInfo = await  userCollection.findOne({username:username})
+         const userInfo = await  authorCollection.findOne({username:username})
 
          if(userInfo === null) throw 'Either the username or password is invalid'
 
-         const userFind = await userCollection .findOne(
+         const userFind = await authorCollection .findOne(
             { username : usernameLower },
               {projection:{username:1 , password:1}}
         );
@@ -85,7 +85,21 @@ async function checkUser(username,password){
 
 }
 
-async function createBook(name, authorName, authorUserName, price, description, category, silename){
+async function getAllBooksByAuthor(username){
+    const booksColl = await books();
+    const allBookInfo = await booksColl.findOne(
+        {authorUserName:{$all:[username]}}
+    )
+ret ={info:"No book added,please add new book"}
+// console.log(allBookInfo)
+   if(allBookInfo){
+       return allBookInfo
+   }
+       return ret
+   
+}
+
+async function createBook(name, authorName, authorUserName, price, description, category, filename){
 
     revArray = []
     const booksColl = await books();
@@ -108,7 +122,12 @@ async function createBook(name, authorName, authorUserName, price, description, 
 
 
 }
+
+
+
 module.exports = {
     createUser,
-    checkUser
+    checkUser,
+    createBook,
+    getAllBooksByAuthor
 }
