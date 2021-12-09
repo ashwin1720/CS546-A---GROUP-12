@@ -35,6 +35,7 @@ async function createUser(custname, username, password){
         return false; 
     }
 }
+
 async function checkUser(username,password){
     console.log("Hello")
     console.log(password)
@@ -92,6 +93,7 @@ async function checkUser(username,password){
 
 
 }
+
 async function index_content(){
     //Display all the books with links.
 
@@ -112,9 +114,41 @@ async function index_content(){
     return bookArray
 }
 
-async function check_bought(){
+async function check_bought(username, fname){
     //Display individual books, before that call this function to check whether the user
     //has bought the book or not and display buy button if not bought yet and if bought shw button to read. 
+    console.log("Inside check")
+    console.log(username)
+    console.log(fname)
+    const usersCollection = await customers();
+    const usersList = await usersCollection.find({}).toArray();
+    let bought_books; 
+    for(let i=0;i<usersList.length;i++){
+        if(usersList[i].username===username){
+            bought_books = usersList[i].booksPurchased
+            break;
+        }
+    }
+    if(bought_books===undefined){
+        return false;
+    }
+    let flag=0;
+    for(let j=0;j<bought_books.length;j++){
+        if(fname===bought_books[j]){
+            flag=1;
+            break;
+        }        
+        else{
+            flag=0;
+        }
+    }
+    if(flag===0){
+        return false
+    }
+    else{
+        return true;
+    }
+    
 
 }
 

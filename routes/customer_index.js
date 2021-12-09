@@ -7,11 +7,11 @@ const data = require('../data/customers');
 router.get('/', async (req, res) => {
     try {
         if(req.session.user && req.session.user.usertype == "customer"){
-            console.log("Inside routes")
-            console.log(req.session.user.username)
-            console.log(req.session.user.usertype)
+            // console.log("Inside routes")
+            // console.log(req.session.user.username)
+            // console.log(req.session.user.usertype)
             let list = await data.index_content()
-            console.log(list)
+            //console.log(list)
             return res.render('users/customer_index',{listofbooks: list ,username:req.session.user.username,
               usertype:req.session.user.usertype,
               titleName:'Customer Main Page'})
@@ -26,14 +26,46 @@ router.get('/', async (req, res) => {
     }
   });
 
-  router.get('/indiviual_book_page/:id', async (req, res) => {
+  router.get('/individual_book_page/:id', async (req, res) => {
     try {
-       return res.render('users/customer_index')
+        //console.log("Individual page routes")
+        //console.log(req.session.user.username)
+        let selected_fname = req.params.id
+        //console.log(selected_fname)
+        let bool = await data.check_bought(req.session.user.username, selected_fname)
+        //console.log(bool)
+        //bool=true
+        
+        if(bool===false){
+
+            return res.render('users/customer_individual_book', {notbought: true, filename:selected_fname})
+        }
+        else{
+            return res.render('users/customer_individual_book', {bought: true, filename:selected_fname})
+        }
+       
        //Should call check_bought and if not bought enable only read samlpe button.
      
     } catch (error) {
+        console.log(error)
       res.status(500).json({error:error})
     }
   });
+  router.get('/individual_book_page/read_sample/:id', async (req, res) => {
+    try {
+        console.log("Sample routes")
+        console.log(req.session.user.username)
+        let sample_fname = req.params.id
+        console.log(sample_fname)
+        return res.render('users/customer_read_sample', {incomingTitle: sample_fname})
 
+       
+       //Should call check_bought and if not bought enable only read samlpe button.
+     
+    } catch (error) {
+
+        console.log(error)
+      res.status(500).json({error:error})
+    }
+  });
 module.exports = router;
