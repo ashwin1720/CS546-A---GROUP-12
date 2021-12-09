@@ -13,10 +13,13 @@ async function checkUser(){
 
 }
 async function index_content(){
+    //Display all the books with links.
 
 }
 
 async function check_bought(){
+    //Display individual books, before that call this function to check whether the user
+    //has bought the book or not and display buy button if not bought yet and if bought shw button to read. 
 
 }
 
