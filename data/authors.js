@@ -10,6 +10,7 @@ async function createUser(username, password){
     let trueObj = {userInserted: true}
     username=username.trim()
     password=password.trim()
+    username=username.toLowerCase();
     const authorsColl = await authors();
     const authorsList = await authorsColl.find({}).toArray();
     for(let i=0;i<authorsList.length;i++){
@@ -31,7 +32,9 @@ async function createUser(username, password){
 }
 
 async function checkUser(username,password){
-
+    console.log("Hello")
+    console.log(password)
+    
     if(!username || !password) throw 'username and password must be provided'
     if(username.length  < 4) throw 'username should be atleast 4 characters long'
 
@@ -56,10 +59,11 @@ async function checkUser(username,password){
        if(password.length<6){
        throw 'password should be atleast 6 characters'
          } 
+         console.log("After")
 
          const userCollection = await authors();
 
-         const userInfo = await  userCollection.findOne({username:username})
+         const userInfo = await  userCollection.findOne({username:usernameLower})
 
          if(userInfo === null) throw 'Either the username or password is invalid'
 
@@ -67,6 +71,7 @@ async function checkUser(username,password){
             { username : usernameLower },
               {projection:{username:1 , password:1}}
         );
+        console.log(userFind)
 
         let compareToMatch = false;
 
