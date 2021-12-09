@@ -1,6 +1,7 @@
 const mongoCollections = require('./../config/mongoCollections');
 
 const customers = mongoCollections.customers;
+const books = mongoCollections.books;
 //const u = mongoCollections.users
 let { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
@@ -94,6 +95,21 @@ async function checkUser(username,password){
 async function index_content(){
     //Display all the books with links.
 
+    console.log("Startttttt")
+    const booksColl = await books();
+    const booksList = await booksColl.find({}).toArray();
+    let bookArray = [];
+    let bookObj = {}
+    //Have to write error condition when bookslist is empty.
+    console.log("Heyyyyyy")
+    console.log(booksList)
+    for(let i=0;i<booksList.length;i++){
+                    bookObj["filename"]=booksList[i].filename
+                    bookObj["bookname"]=booksList[i].bookname
+                    bookArray.push(bookObj)
+       
+    }
+    return bookArray
 }
 
 async function check_bought(){

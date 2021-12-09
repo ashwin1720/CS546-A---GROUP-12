@@ -33,11 +33,11 @@ router.get('/', async (req, res) => {
         res.status(400).render('users/customer_login', {errors:error, titleName:'Login' ,hasErrors: true,});
         return;
       }
-
+      console.log(requestBody.username)
       if(requestBody.username.length<4){
         error.push('username should be atleast 4 characters')
       
-        return res.status(400).render('customer/author_login', {
+        return res.status(400).render('customer/customer_login', {
           errors: error,
           titleName:'Login',
           hasErrors: true,
@@ -85,13 +85,14 @@ router.get('/', async (req, res) => {
         }
         
         const {username,password} = requestBody;
-        console.log("hello")
+        //console.log("hello")
         const newUser = await data.checkUser(username,password)
        
-        console.log("hi")
+        //console.log("hi")
         if(newUser.authenticated){
           const usertype ="customer"
           req.session.user ={username:username,usertype:usertype};
+          console.log("Printtttttt")
           console.log(req.session.user.username)
           console.log(req.session.user.usertype)
           return res.redirect('/customer_index')
@@ -100,7 +101,8 @@ router.get('/', async (req, res) => {
         
      
     } catch (error) {
-      return res.render('users/author_login',{errors:error,hasErrors:true})
+      console.log(error)
+      return res.render('users/customer_login',{errors:error,hasErrors:true})
     }
   })  
 module.exports = router;
