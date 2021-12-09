@@ -1,6 +1,6 @@
-<p>Create new book</p>
+<main>
 
-<header>
+  <header>
     <nav>   
         <a href="/author_index"></a>
         <ul>
@@ -12,11 +12,21 @@
 
 </header>
 
-<main>
-
     <h1 class="text-center display-4 my-4">Book Upload Page</h1>
         <form action="/author_index/author_upload" method="POST" enctype="multipart/form-data">
           <div class="custom-file mb-3">
+            <label for="bookname">
+            Name Of The Book<input type="text" name="bookname" id="bookname">
+            </label>
+            <label for="price">
+            Price<input type="text" name="price" id="price">
+            </label>
+            <label for="description">
+            Description<input type="text" name="description" id="description">
+            </label>
+            <label for="category">
+            Category<input type="text" name="category" id="category">
+            </label>
             <label for="file" class="custom-file-label">Choose File</label>
             <input type="file" name="file" id="file" class="custom-file-input">
             

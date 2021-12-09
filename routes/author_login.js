@@ -85,12 +85,15 @@ router.get('/', async (req, res) => {
         }
         
         const {username,password} = requestBody;
+        console.log("hello")
         const newUser = await usersData.checkUser(username,password)
        
-
+        console.log("hi")
         if(newUser.authenticated){
           const usertype ="author"
           req.session.user ={username:username,usertype:usertype};
+          console.log(req.session.user.username)
+          console.log(req.session.user.usertype)
           return res.redirect('/author_index')
       
         }

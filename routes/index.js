@@ -17,6 +17,7 @@ const constructorMethod = (app) => {
   app.use('/customer_login',customerLoginRoutes)
   app.use('/customer_signup',customerSignupRoutes)
   app.use('/author_index',authorIndexRoutes)
+  app.use('/author_upload', authorUploadRoutes)
   app.use('/author_index/author_upload', authorUploadRoutes)
   
   

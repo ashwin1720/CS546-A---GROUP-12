@@ -1,6 +1,8 @@
 const express = require('express');
 
 const router = express.Router();
+//const data = require('../data');
+//authorData=data.authors;
 const data = require('../data/authors');
 
 const upload = require('express-handlebars')
@@ -9,12 +11,12 @@ const upload = require('express-handlebars')
 
 router.get('/', async (req, res) => {
     try {
-        if(!req.session.user){
+        if(!req.session.user && req.session.user.usertype ==="author"){
             return res.render('users/author_login',{titleName:'Author Login'})
           }if(req.session.user && req.session.user.usertype ==="author"){
             return res.render('users/author_upload', {titleName: 'Author Upload'})
           }
-       
+          // return res.render('users/author_upload', {titleName: 'Author Upload'})
      
     } catch (error) {
       res.status(500).json({error:error})
@@ -22,19 +24,35 @@ router.get('/', async (req, res) => {
   });
 router.post('/', async (req, res) => {
     try {
-        
-        if(req.files){
 
+        console.log(req.body)
+        let details=req.body;
+        console.log(req.body);
+        let bookname = details["bookname"]
+        let price = details["price"]
+        let description = details["description"]
+        let category = details["category"]
+        let authorname="abc"
+        let authorusername = req.session.user.username
+
+        if(req.files){
             //console.log(req.files)
             var file = req.files.file;
             var filename = file.name;
+            //filename = filename+authorusername;
             console.log(filename);
-            file.mv('./uploads/'+filename, function(err){
+            let newfilename = filename.slice(0, -4)
+            console.log(newfilename)
+            newfilename = newfilename+authorusername+".pdf"
+            file.mv('./uploads/'+newfilename, function(err){
                 if(err){
-                    res.render('user/error')
+                    res.render('users/error')
                 }
                 else{
-                    alert('Book Uploaded Successfully')
+                    console.log("Cristiano")
+                    let bool = data.createBook(bookname, authorname, authorusername, price, description, category, newfilename)
+                    console.log(bool)
+                    res.redirect('/author_index')
                 }
             })
         }
@@ -47,7 +65,5 @@ router.post('/', async (req, res) => {
     }
 
   });
-
-
   module.exports = router;
 

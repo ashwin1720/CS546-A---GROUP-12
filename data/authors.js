@@ -6,7 +6,6 @@ let { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
 
-
 async function createUser(username, password){
     let trueObj = {userInserted: true}
     username=username.trim()
@@ -58,13 +57,13 @@ async function checkUser(username,password){
        throw 'password should be atleast 6 characters'
          } 
 
-         const authorCollection = await authors();
+         const userCollection = await authors();
 
-         const userInfo = await  authorCollection.findOne({username:username})
+         const userInfo = await  userCollection.findOne({username:username})
 
          if(userInfo === null) throw 'Either the username or password is invalid'
 
-         const userFind = await authorCollection .findOne(
+         const userFind = await userCollection .findOne(
             { username : usernameLower },
               {projection:{username:1 , password:1}}
         );
@@ -85,49 +84,69 @@ async function checkUser(username,password){
 
 }
 
-async function getAllBooksByAuthor(username){
-    const booksColl = await books();
-    const allBookInfo = await booksColl.findOne(
-        {authorUserName:{$all:[username]}}
-    )
-ret ={info:"No book added,please add new book"}
-// console.log(allBookInfo)
-   if(allBookInfo){
-       return allBookInfo
-   }
-       return ret
-   
-}
-
-async function createBook(name, authorName, authorUserName, price, description, category, filename){
+async function createBook(bookname, authorName, authorUserName, price, description, category, filename){
 
     revArray = []
     const booksColl = await books();
     let newBook = {
-        name: name,
+        bookname: bookname,
         authorName: authorName,
         authorUserName: authorUserName,
         numberOfPurchase: 0,
         price: price,
         description: description,
         category: category,
+        rating: 0,
         reviews: revArray,
         filename: filename
     };
     const insertInfo = await booksColl.insertOne(newBook)
+    console.log("ronaldo")
     if(insertInfo.insertedCount!== 0){
         const newId= insertInfo.insertedId;
-        return trueObj;
+        // return trueObj;
+        return true;
     }
+}
+async function displayBooks(authorusername){
+    const booksColl = await books();
+    const booksList = await booksColl.find({}).toArray();
+    let bookArray = [];
+    let bookObj = {}
+    for(let i=0;i<booksList.length;i++){
+        if(booksList[i].authorUserName===authorusername){
+                    bookObj["filename"]=booksList[i].filename
+                    bookObj["bookname"]=booksList[i].bookname
+                    bookArray.push(bookObj)
+        }
+       
+    }
+    return bookArray
+}
+async function search_book(fname){
+    const booksColl = await books();
 
+    const booksList = await booksColl.find({}).toArray();
+    let revObj = {}
+    for(let i=0;i<booksList.length;i++){
+        if(booksList[i].filename===fname){
+                    revObj["rating"] = booksList[i].rating; 
+                    revObj["review"] = booksList[i].reviews;
+                    revObj["bname"] =  booksList[i].bookname;
+                    revObj['price'] = booksList[i].price;
+                    revObj['description'] = booksList[i].description;
+                    revObj['numberOfPurchase'] =booksList[i].numberOfPurchase;
+                    
+        }
 
 }
-
-
+return revObj; 
+}
 
 module.exports = {
     createUser,
     checkUser,
     createBook,
-    getAllBooksByAuthor
+    displayBooks,
+    search_book
 }
