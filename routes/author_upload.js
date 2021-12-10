@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
     try {
 
         console.log(req.body)
-        let details=xss(req.body);
+        let details=req.body;
         console.log(req.body);
         let bookname = details["bookname"]
         let price = details["price"]

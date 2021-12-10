@@ -1,0 +1,47 @@
+<main>
+
+
+<header>
+<div class="customerSearchDiv">
+
+       
+        <a href="/customer_index"></a>
+        <ul>
+           <li>  <a href="/customer_index">My books</a> </li> 
+             <li><a href="/author_logout">Logout</a></li>
+        </ul>
+</div>   
+</header> 
+
+<h1></h1>search for author,bookname or category here</h1>
+<form action="searchForm" id="searchForm">
+            <input type="text" name="search_term" placeholder="Search books,author,category" id="search_term">
+            <label for="search_term">Search Books</label>
+            <button type="submit" value="Submit" id="searchButton">Search</button>
+ </form>
+
+  <div id="myErrors">
+
+        </div>
+
+ <p id="error1">Search field cannot be empty</p>
+        <div class="errors">
+            <ol id="attempts"></ol>
+          </div>
+
+        <div id="book">
+            
+            
+            
+        </div>
+         <ul id="bookList">
+                 
+        </ul>
+
+  {{#each listofbooks}}
+    <li> <a href="/customer_index/individual_book_page/{{this.filename}}">{{this.bookname}} </a>  </li>
+    
+    {{/each}}
+<div id="livesearch" class="searchhide">This</div>
+<script src="/public/js/searchScript.js"></script>
+</main>

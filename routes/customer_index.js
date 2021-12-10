@@ -11,8 +11,10 @@ router.get('/', async (req, res) => {
             // console.log(req.session.user.username)
             // console.log(req.session.user.usertype)
             let list = await data.index_content()
+            let recentList = await data.recently_added();
+            console.log(recentList)
             //console.log(list)
-            return res.render('users/customer_index',{listofbooks: list ,username:req.session.user.username,
+            return res.render('users/customer_index',{listofrecent: recentList, listofbooks: list ,username:req.session.user.username,
               usertype:req.session.user.usertype,
               titleName:'Customer Main Page'})
           }

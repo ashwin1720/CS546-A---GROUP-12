@@ -2,8 +2,10 @@ const mongoCollections = require('./../config/mongoCollections');
 
 const authors = mongoCollections.authors;
 const books = mongoCollections.books;
+const recents = mongoCollections.recents;
 let { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
+const { Console } = require('console');
 const saltRounds = 16;
 
 async function createUser(username,authorName, password){
@@ -63,7 +65,7 @@ async function checkUser(username,password){
 
          const userCollection = await authors();
 
-         const userInfo = await  userCollection.findOne({username:username})
+         const userInfo = await  userCollection.findOne({username:usernameLower})
 
          if(userInfo === null) throw 'Either the username or password is invalid'
 
@@ -71,6 +73,9 @@ async function checkUser(username,password){
             { username : usernameLower },
               {projection:{username:1 , password:1,authorName:1}}
         );
+
+
+        console.log(userFind)
 
         let compareToMatch = false;
 
@@ -92,7 +97,26 @@ async function checkUser(username,password){
 async function createBook(bookname, authorName, authorUserName, price, description, category, filename){
 
     revArray = []
+
     const booksColl = await books();
+    const recentsColl = await recents();
+    const recentsList = await recentsColl.find({}).toArray();
+    if(recentsList.length===5){
+        let del_name_book = recentsList[0].filename;
+        recentsColl.deleteOne({"filename": del_name_book})
+        let newrecentBook = {
+            bookname: bookname,
+            filename: filename
+        }
+        const insertrecentsInfo = await recentsColl.insertOne(newrecentBook) 
+    }
+    else{
+        let newrecentBook = {
+            bookname: bookname,
+            filename: filename
+        }
+        const insertrecentsInfo = await recentsColl.insertOne(newrecentBook) 
+    }
     let newBook = {
         bookname: bookname,
         authorName: authorName,
@@ -116,24 +140,33 @@ async function createBook(bookname, authorName, authorUserName, price, descripti
 async function displayBooks(authorusername){
     const booksColl = await books();
     const booksList = await booksColl.find({}).toArray();
+    const recentsColl = await recents();
+    const recentsList = await recentsColl.find({}).toArray();
+    // console.log("Delete")
+    // const delInfo = recentsColl.deleteOne({"bookname": "ABC"})
+    // console.log(delInfo)
     let noBooks = "No books please add new books"
     let bookArray = [];
-    let bookObj = {}
+    
     for(let i=0;i<booksList.length;i++){
         if(booksList[i].authorUserName===authorusername){
+            let bookObj = {}
                     bookObj["filename"]=booksList[i].filename
                     bookObj["bookname"]=booksList[i].bookname
                     bookArray.push(bookObj)
+                    // console.log("Inside for loop")
+                    // console.log(bookArray)
         }
        
     }
     
     if(bookArray.length === 0){
-        console.log("hi")
+        // console.log("hi")
         bookArray.push(noBooks)
         return bookArray
     }
-   
+//     console.log("Inside display books")
+//    console.log(bookArray)
     return bookArray
 }
 async function search_book(fname){

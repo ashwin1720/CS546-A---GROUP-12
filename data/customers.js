@@ -2,6 +2,7 @@ const mongoCollections = require('./../config/mongoCollections');
 
 const customers = mongoCollections.customers;
 const books = mongoCollections.books;
+const recents = mongoCollections.recents; 
 //const u = mongoCollections.users
 let { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
@@ -101,11 +102,12 @@ async function index_content(){
     const booksColl = await books();
     const booksList = await booksColl.find({}).toArray();
     let bookArray = [];
-    let bookObj = {}
+    
     //Have to write error condition when bookslist is empty.
     console.log("Heyyyyyy")
     console.log(booksList)
     for(let i=0;i<booksList.length;i++){
+        let bookObj = {}
                     bookObj["filename"]=booksList[i].filename
                     bookObj["bookname"]=booksList[i].bookname
                     bookArray.push(bookObj)
@@ -199,12 +201,42 @@ const updatedInfo1 = await usersCollection.updateOne(
     }
 
 
+async function recently_added(){
+    const recentsColl = await recents();
+    const recentsList = await recentsColl.find({}).toArray();
+    let recentsArray = [];
+    
+    //Have to write error condition when recents is empty.
+    console.log("Inside recents function")
+    //console.log(booksList)
+    for(let i=0;i<recentsList.length;i++){
+        let recentsObj = {}
+                    recentsObj["filename"]=recentsList[i].filename
+                    recentsObj["bookname"]=recentsList[i].bookname
+                    recentsArray.push(recentsObj)
+       
+    }
+    return recentsArray
 
+}
+   async function searchBook(searchedTerm){
+        
+        const booksColl = await books();
+        const booksList = await booksColl.find({ $or :[{bookname:searchedTerm} , {authorName:searchedTerm}]
+        }).toArray();
+       
+    
+    console.log(booksList)
+    
+    return booksList; 
+
+}
 module.exports = {
     index_content,
-    
+    searchBook,
     createUser,
     checkUser,
     check_bought,
-    buy_book
+    buy_book,
+    recently_added
 }
