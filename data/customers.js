@@ -258,25 +258,31 @@ async function library(username){
     }
     //console.log(purArray)
 return purArray
-   async function searchBook(searchedTerm){
-        
-        const booksColl = await books();
-        const booksList = await booksColl.find({ $or :[{bookname:searchedTerm} , {authorName:searchedTerm}]
-        }).toArray();
-       
-    
-    console.log(booksList)
-    
-    return booksList; 
 
 }
+
+
+async function searchBook(searchedTerm){
+        
+    const booksColl = await books();
+    const booksList = await booksColl.find({ $or :[{bookname:searchedTerm} , {authorName:searchedTerm}]
+    }).toArray();
+   
+
+console.log(booksList)
+
+return booksList; 
+
+}
+
 module.exports = {
     index_content,
-    searchBook,
+    
     createUser,
     checkUser,
     check_bought,
     buy_book,
     recently_added,
-    library
+    library,
+    searchBook
 }
