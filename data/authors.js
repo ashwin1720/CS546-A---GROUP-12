@@ -246,6 +246,10 @@ async function updateAuthorDetails(oldusername,newusername,authorName,password){
       return ret
  }
 
+ async function ashwin(){
+
+ }
+
 
 
 
@@ -256,5 +260,6 @@ module.exports = {
     displayBooks,
     search_book,
     getAuthorDetails,
-    updateAuthorDetails
+    updateAuthorDetails,
+    ashwin()
 }
