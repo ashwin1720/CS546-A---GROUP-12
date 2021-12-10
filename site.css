@@ -1,0 +1,172 @@
+* {
+	box-sizing: border-box;
+}
+
+
+
+.h1Forlanding{
+    text-align:center;
+    color: white;
+    font-weight: bolder;
+}
+
+.introductionP{
+    color: white;
+   text-align: center;
+    text-align-last: center;
+}
+.landingContainer{
+  background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+  background-size: 100% 100%;
+   height: 100vh;
+  text-align: center;
+  justify-content: center;
+}
+
+.all_urls ul {
+display: inline-block;
+text-align: left;
+font-size: larger;
+font-weight: bolder;
+}
+
+/* .loginContainer{
+    background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+    background-size: 100% 100%;
+     height: 100vh;
+    text-align: center;
+    justify-content: center;
+} */
+
+.loginContainer{
+    background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+    background-size: 100% 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.columnAuthorLogin{
+   align-items: center;
+   text-align: center;
+   background-color:wheat;
+   opacity:0.9;
+   width: 450px;
+   box-shadow: rgba(0,0,0, 0.5) 0 50px 50px;
+   padding: 15px 15px;
+  
+}
+.columnAuthorLogin form{
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+ }
+.columnAuthorLogin form input[type="text"],
+.columnAuthorLogin form input[type="password"]{
+   text-align:center;
+   font-size: 20px;
+   margin: 10px ;
+   border: none;
+   margin-left: auto;
+   margin-right: auto;
+   border-radius: 5px;
+   height: 40px;
+   width: 350px;
+   opacity: 0.99;
+   font-weight: 400;
+ 
+}
+
+.authorLoginLabels label{
+    color:black;
+    font-weight: bolder;
+}
+
+.columnAuthorLogin a{
+    font-weight: bolder;
+    color: black;
+}
+
+.columnAuthorLogin button{
+    background-color: brown;
+    font-weight: bolder;
+    font-size: larger;
+    color: whitesmoke;
+
+}
+
+.errors{
+    color: red;
+}
+
+ /*signup */
+
+.signupContainer{
+    background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+    background-size: 100% 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+.columnAuthorSignup form{
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+ }
+
+
+
+
+.columnAuthorSignup{
+    text-align: center;
+    align-items: center;
+    background-color:wheat;
+    opacity:0.9;
+    width: 450px;
+    box-shadow: rgba(0,0,0, 0.5) 0 50px 50px;
+    padding: 15px 15px;
+    
+ }
+ 
+ .columnAuthorSignup form input[type="text"],
+ .columnAuthorSignup form input[type="password"]{
+    text-align:center;
+    font-size: 20px;
+    margin: 10px ;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    height: 40px;
+    width: 350px;
+    opacity: 0.99;
+    font-weight: 400;
+  
+ }
+ 
+ .authorSignUpLabels label{
+     color:black;
+     font-weight: bolder;
+ }
+ 
+ .columnAuthorSignup a{
+     font-weight: bolder;
+     color: black;
+ }
+ 
+ .columnAuthorSignup button{
+     background-color: brown;
+     font-weight: bolder;
+     font-size: larger;
+     color: whitesmoke;
+ 
+ }
+
+
+ /*-------------author_index______*/
+
+ 
