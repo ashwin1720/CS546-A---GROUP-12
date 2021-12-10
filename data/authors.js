@@ -249,6 +249,7 @@ async function updateAuthorDetails(oldusername,newusername,authorName,password){
 
 
 
+
 module.exports = {
     createUser,
     checkUser,
@@ -256,5 +257,6 @@ module.exports = {
     displayBooks,
     search_book,
     getAuthorDetails,
-    updateAuthorDetails
+    updateAuthorDetails,
+    
 }
