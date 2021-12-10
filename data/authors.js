@@ -6,11 +6,13 @@ let { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
 
-async function createUser(username, password){
+async function createUser(username,authorName, password){
     let trueObj = {userInserted: true}
     username=username.trim()
     password=password.trim()
-    username=username.toLowerCase();
+    authorName = authorName.trim()
+    username =username.toLowerCase()
+
     const authorsColl = await authors();
     const authorsList = await authorsColl.find({}).toArray();
     for(let i=0;i<authorsList.length;i++){
@@ -19,6 +21,7 @@ async function createUser(username, password){
     const hash = await bcrypt.hash(password, saltRounds);
     let newUser = {
         username: username,
+        authorName:authorName,
         password: hash
     };
     const insertInfo = await authorsColl.insertOne(newUser)
@@ -32,9 +35,7 @@ async function createUser(username, password){
 }
 
 async function checkUser(username,password){
-    console.log("Hello")
-    console.log(password)
-    
+
     if(!username || !password) throw 'username and password must be provided'
     if(username.length  < 4) throw 'username should be atleast 4 characters long'
 
@@ -59,19 +60,17 @@ async function checkUser(username,password){
        if(password.length<6){
        throw 'password should be atleast 6 characters'
          } 
-         console.log("After")
 
          const userCollection = await authors();
 
-         const userInfo = await  userCollection.findOne({username:usernameLower})
+         const userInfo = await  userCollection.findOne({username:username})
 
          if(userInfo === null) throw 'Either the username or password is invalid'
 
          const userFind = await userCollection .findOne(
             { username : usernameLower },
-              {projection:{username:1 , password:1}}
+              {projection:{username:1 , password:1,authorName:1}}
         );
-        console.log(userFind)
 
         let compareToMatch = false;
 
@@ -83,6 +82,7 @@ async function checkUser(username,password){
 
           let ret ={}
     ret.authenticated = true
+    ret.authorName = userFind.authorName
 
     return ret
 
@@ -116,6 +116,7 @@ async function createBook(bookname, authorName, authorUserName, price, descripti
 async function displayBooks(authorusername){
     const booksColl = await books();
     const booksList = await booksColl.find({}).toArray();
+    let noBooks = "No books please add new books"
     let bookArray = [];
     let bookObj = {}
     for(let i=0;i<booksList.length;i++){
@@ -126,6 +127,13 @@ async function displayBooks(authorusername){
         }
        
     }
+    
+    if(bookArray.length === 0){
+        console.log("hi")
+        bookArray.push(noBooks)
+        return bookArray
+    }
+   
     return bookArray
 }
 async function search_book(fname){
@@ -145,13 +153,108 @@ async function search_book(fname){
         }
 
 }
+
+
+
 return revObj; 
 }
+
+async function getAuthorDetails(username){
+    const userCollection = await authors();
+   
+    console.log("inside getAuthorDetail")
+    const userFind = await userCollection .findOne(
+        { username : username },
+          {projection:{username:1 , password:1,authorName:1}}
+    );
+    console.log(userFind.authorName)
+    return userFind
+}
+
+async function updateAuthorDetails(oldusername,newusername,authorName,password){
+    const userCollection = await authors();
+
+
+    //_______
+
+
+    if(!newusername || !password ||!authorName) throw 'username and password must be provided'
+    if(newusername.length  < 4) throw 'username should be atleast 4 characters long'
+
+    if(hasWhiteSpace(newusername)){
+        throw'username cannot have spaces'
+        
+      } 
+      if(hasWhiteSpace(password)){
+       throw 'password should not contain spaces'
+        
+      } 
+
+      if(hasWhiteSpace(authorName)){
+        throw 'name should not contain spaces'
+         
+       } 
+      function hasWhiteSpace(s) {
+        return /\s/g.test(s);
+       }
+
+       let oldusernameLower = oldusername.toLowerCase();
+       let newusernameLower = newusername.toLowerCase();
+
+    //    if(oldusername === newusernameLower){
+    //        throw "New user name cannot be same as old user"
+    //    }
+
+       if (!newusernameLower.match(/^[0-9a-z]+$/)){
+        throw 'username should be alphanumeric'
+         
+       } 
+       if(password.length<6){
+       throw 'password should be atleast 6 characters'
+         } 
+
+     
+
+         const userInfo = await  userCollection.findOne({username:newusernameLower})
+
+         if(userInfo !== null) throw 'Username already exists'
+
+    //__________
+   
+    // console.log("inside getAuthorDetail")
+    const hashpassword = await bcrypt.hash(password, saltRounds);
+    let newAuthorDetails = {
+       username:newusernameLower,
+       authorName:authorName,
+       password:hashpassword
+}
+    
+
+    const updatedAuthorInfo = await userCollection.updateOne(
+        { username: oldusernameLower },
+        { $set: newAuthorDetails}
+      );
+      
+
+      if (updatedAuthorInfo.modifiedCount === 0) {
+        throw 'could not update author details successfully';
+      }
+      let ret ={}
+      ret.authenticated = true
+      
+  
+      return ret
+ }
+
+
+
 
 module.exports = {
     createUser,
     checkUser,
     createBook,
     displayBooks,
-    search_book
+    search_book,
+    getAuthorDetails,
+    updateAuthorDetails
 }
