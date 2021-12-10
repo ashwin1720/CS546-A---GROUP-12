@@ -1,17 +1,32 @@
-<p>This is Author index page</p>
-<p>{{username}}</p>
-<header>
-    <nav>   
+<main>
+<p id="aip"> This is Author index page</p>
+<p>Hi {{username}}</p>
+<header class="aiheader">
+<a href="/author_index"></a>
+    <nav class="ainav"> 
+       
+        <div class=" aihrefdiv">
+
+       
         <a href="/author_index"></a>
         <ul>
            <li>  <a href="/author_index">My books</a> </li> 
            <li> <a href="/author_index/author_upload">Add new book</a></li>
             <li> <a href="/author_index/author_update_personal_details"> Update Personal Details</a></li>
+             <li><a href="/author_logout">Logout</a></li>
         </ul>
-    {{#each listofbooks}}
-    <li> <a href="/author_index/author_individual/{{this.filename}}">{{this.bookname}} </a>  </li>
-    
-    {{/each}}
+         </div>  
     </nav>
 
 </header>
+
+<div class="aibooklist">
+
+{{#each listofbooks}}
+    <li> <a href="/author_index/author_individual/{{this.filename}}">{{this.bookname}} </a>  </li>
+    
+{{/each}}
+
+
+</div>
+</main>

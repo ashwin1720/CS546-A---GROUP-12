@@ -1,11 +1,15 @@
 const express = require('express');
-
+const xss = require('xss');
 const router = express.Router();
 //const data = require('../data');
 //authorData=data.authors;
 const data = require('../data/authors');
 
 const upload = require('express-handlebars')
+
+var ObjectID = require('mongodb').ObjectID;
+
+var objectId = new ObjectID();
 
 //router.use(upload())
 
@@ -26,7 +30,7 @@ router.post('/', async (req, res) => {
     try {
 
         console.log(req.body)
-        let details=req.body;
+        let details=xss(req.body);
         console.log(req.body);
         let bookname = details["bookname"]
         let price = details["price"]
@@ -43,16 +47,20 @@ router.post('/', async (req, res) => {
             console.log(filename);
             let newfilename = filename.slice(0, -4)
             console.log(newfilename)
-            newfilename = newfilename+authorusername+".pdf"
-            file.mv('./uploads/'+newfilename, function(err){
+            newfilename = newfilename+objectId+".pdf"
+            file.mv('./public/uploads/'+newfilename,async function(err){
                 if(err){
                     res.render('users/error')
                 }
                 else{
-                    console.log("Cristiano")
-                    let bool = data.createBook(bookname, authorname, authorusername, price, description, category, newfilename)
-                    console.log(bool)
-                    res.redirect('/author_index')
+                    // console.log("Cristiano")
+                    let bool = await data.createBook(bookname, authorname, authorusername, price, description, category, newfilename)
+                    // console.log(bool)
+
+                    if (req.session.user && req.session.user.usertype === "author") {
+                      return res.redirect('/author_index')
+                    }
+                    // res.redirect('/author_index')
                 }
             })
         }

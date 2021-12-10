@@ -1,5 +1,5 @@
 const express = require('express');
-
+const xss = require('xss');
 const router = express.Router();
 const usersData = require('../data/authors');
 // const usersData = data.users;
@@ -91,7 +91,8 @@ router.get('/', async (req, res) => {
         console.log("hi")
         if(newUser.authenticated){
           const usertype ="author"
-          req.session.user ={username:username,usertype:usertype};
+          req.session.user ={username:username,usertype:usertype,authorName:newUser.authorName};
+          console.log(newUser.authorName)
           console.log(req.session.user.username)
           console.log(req.session.user.usertype)
           return res.redirect('/author_index')
