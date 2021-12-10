@@ -1,0 +1,57 @@
+<main>
+<p>Book Details</p>
+<header>
+    <nav>   
+       
+        <ul>
+           <li>  <a href="/author_index">My books</a> </li> 
+           <li> <a href="author_index/author_upload">Add new book</a></li>
+            <li> <a href="/author_index/author_update_personal_details"> Update Personal Details</a></li>
+              <a href="/author_logout">Logout</a>
+        </ul>
+    </nav>
+
+</header>
+
+ <h1>
+ Book Name
+   {{this.bookDetails.bname}}
+   
+ </h1>
+
+<h3>
+Description
+</h3>
+ <p>{{this.bookDetails.description}}</p>
+
+<h3>
+    Price
+    
+</h3>
+<p>{{this.bookDetails.price}}</p>
+<h3>
+Number of Purchases
+</h3>
+<p>
+{{this.bookDetails.numberOfPurchase}}
+</p>
+<h3>
+Rating
+</h3>
+<p>{{this.bookDetails.rating}}</p>
+
+<h3>
+    Review
+</h3>
+
+<h4>
+{{#each this.bookDetails.review}}
+   <li>{{this}}</li>
+    
+    {{/each}}
+</h4>
+
+
+  
+</main>
+
