@@ -47,9 +47,9 @@ async function check(str, res){
       try {
         const user_data=req.body;
         //console.log(user_data);
-        let un = user_data['email']
+        let un = user_data['username']
         let pw = user_data['password']
-        let authorName = user_data['author_name']
+        let authorName = user_data['name']
   
           if(typeof(un)!='string' || typeof(pw)!='string'  || typeof(authorName)!='string')
           {
