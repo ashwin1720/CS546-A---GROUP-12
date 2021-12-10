@@ -1,0 +1,6 @@
+<h1>Welcome To Your Library</h1>
+
+
+{{#each purchasedBooks}}
+    <li> <a href="/customer_index/individual_book_page/{{this.filename}}">{{this.bookname}} </a>  </li>
+{{/each}}

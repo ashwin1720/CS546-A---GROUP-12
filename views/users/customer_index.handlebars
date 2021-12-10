@@ -6,6 +6,7 @@
         <ul>
            <li>  <a href="/customer_index/customer_library">My books</a> </li> 
             <li> <a href="/customer_index/customer_update_personal_details"> Update Personal Details</a></li>
+            <li>  <a href="/customer_index/customer_search">Search for book,author or category</a></li>
         </ul>
     <h2>Recently Added !!!</h2>
     {{#each listofrecent}}
@@ -16,7 +17,6 @@
     </h2>
     {{#each listofbooks}}
     <li> <a href="/customer_index/individual_book_page/{{this.filename}}">{{this.bookname}} </a>  </li>
-    
     {{/each}}
     </nav>
 

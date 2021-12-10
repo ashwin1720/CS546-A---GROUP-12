@@ -131,16 +131,19 @@ async function check_bought(username, fname){
             break;
         }
     }
+    console.log("Bought books array", bought_books)
     if(bought_books===undefined){
         return false;
     }
     let flag=0;
     for(let j=0;j<bought_books.length;j++){
         if(fname===bought_books[j]){
+            console.log("Matched")
             flag=1;
             break;
         }        
         else{
+            console.log("Not Matching")
             flag=0;
         }
     }
@@ -219,6 +222,44 @@ async function recently_added(){
     return recentsArray
 
 }
+async function library(username){
+
+
+    
+    const usersCollection = await customers();
+    const usersList = await usersCollection.find({}).toArray();
+    const booksColl = await books();
+        const booksList = await booksColl.find({}).toArray();
+    //let bought_books;
+    let purArray = [] 
+    let purBooks = []
+    for(let j=0;j<usersList.length;j++){
+        if(usersList[j].username===username){
+            // console.log("Username Matched Successfully Library")
+            // console.log(usersList[j].booksPurchased)
+            // console.log("Betweeeeeeeeen")
+            purBooks = usersList[j].booksPurchased
+            break;
+        }
+    }
+    console.log(purBooks)
+    console.log(booksList)
+    for(let i=0;i<booksList.length;i++){
+        for(let k=0;k<purBooks.length;k++){
+            if(booksList[i].filename===purBooks[k]){
+                let purObj = {}
+                    purObj["filename"]=booksList[i].filename
+                    purObj["bookname"]=booksList[i].bookname
+                    purArray.push(purObj)
+
+            }
+        }
+        
+    }
+    //console.log(purArray)
+return purArray
+
+}
 module.exports = {
     index_content,
     
@@ -226,5 +267,6 @@ module.exports = {
     checkUser,
     check_bought,
     buy_book,
-    recently_added
+    recently_added,
+    library
 }

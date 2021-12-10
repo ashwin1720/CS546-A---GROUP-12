@@ -34,8 +34,10 @@ router.get('/', async (req, res) => {
         //console.log(req.session.user.username)
         let selected_fname = req.params.id
         //console.log(selected_fname)
-        let bool = await data.check_bought(req.session.user.username, selected_fname)
-        //console.log(bool)
+        let bool=false;
+        
+        bool = await data.check_bought(req.session.user.username, selected_fname)
+        console.log("Bool = ", bool)
         //bool=true
         
         if(bool===false){
@@ -105,6 +107,23 @@ router.get('/', async (req, res) => {
 
        
        //Should call check_bought and if not bought enable only read samlpe button.
+     
+    } catch (error) {
+
+        console.log(error)
+      res.status(500).json({error:error})
+    }
+  });
+  router.get('/customer_library', async (req, res) => {
+    try {
+        
+        console.log("Library routes")
+        //console.log(req.session.user.username)
+        //let buy_fname = req.params.id
+        //console.log(buy_fname)
+        let bool1 = await data.library(req.session.user.username)
+        //console.log(bool1)
+        return res.render('users/customer_library', {purchasedBooks: bool1})
      
     } catch (error) {
 

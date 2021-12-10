@@ -1,4 +1,5 @@
 const express = require('express');
+
 const xss = require('xss');
 const router = express.Router();
 //const data = require('../data');
@@ -6,10 +7,7 @@ const router = express.Router();
 const data = require('../data/authors');
 
 const upload = require('express-handlebars')
-
-var ObjectID = require('mongodb').ObjectID;
-
-var objectId = new ObjectID();
+const { ObjectID } = require('bson');
 
 //router.use(upload())
 
@@ -47,6 +45,7 @@ router.post('/', async (req, res) => {
             console.log(filename);
             let newfilename = filename.slice(0, -4)
             console.log(newfilename)
+            var objectId = new ObjectID();
             newfilename = objectId+".pdf"
             file.mv('./public/uploads/'+newfilename,async function(err){
                 if(err){
