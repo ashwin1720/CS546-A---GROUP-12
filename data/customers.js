@@ -222,7 +222,6 @@ async function recently_added(){
     return recentsArray
 
 }
-<<<<<<< HEAD
 async function library(username){
 
 
@@ -259,7 +258,6 @@ async function library(username){
     }
     //console.log(purArray)
 return purArray
-=======
    async function searchBook(searchedTerm){
         
         const booksColl = await books();
@@ -270,7 +268,6 @@ return purArray
     console.log(booksList)
     
     return booksList; 
->>>>>>> 1033da6ce7c18f2f9eaf1e3ff48d0e4f19f565e9
 
 }
 module.exports = {
