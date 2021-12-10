@@ -100,7 +100,7 @@ router.get('/', async (req, res) => {
         
      
     } catch (error) {
-      return res.render('users/author_login',{errors:error,hasErrors:true})
+      return res.render('users/customer_login',{errors:error,hasErrors:true})
     }
   })  
 module.exports = router;
