@@ -1,1 +1,17 @@
 <p>This is Author index page</p>
+<p>{{username}}</p>
+<header>
+    <nav>   
+        <a href="/author_index"></a>
+        <ul>
+           <li>  <a href="/author_index">My books</a> </li> 
+           <li> <a href="/author_index/author_upload">Add new book</a></li>
+            <li> <a href="/author_index/author_update_personal_details"> Update Personal Details</a></li>
+        </ul>
+    {{#each listofbooks}}
+    <li> <a href="/author_index/author_individual/{{this.filename}}">{{this.bookname}} </a>  </li>
+    
+    {{/each}}
+    </nav>
+
+</header>

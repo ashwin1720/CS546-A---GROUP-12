@@ -5,21 +5,26 @@ const usersData = require('../data/authors');
 // const usersData = data.users;
 
 router.get('/', async (req, res) => {
-    try {
-      if(!req.session.user){
-        return res.render('users/author_login',{titleName:'Author Login'})
-      }if(req.session.user && req.session.user.usertype ==="author"){
-        return res.render('users/author_index',{titleName:'Author Main Page'})
-      }
-     } catch (error) {
-      res.status(500).json({error:error})
+  try {
+    if (req.session.user && req.session.user.usertype === "author") {
+      return res.redirect('/author_index')
+    }if(req.session.user && req.session.user.usertype === "customer"){
+      return res.redirect('/customer_index')
     }
-  });
+    else{
+      return res.render('users/author_login',{
+        titleName:'Author Login'
+      })
+    }
+   
+  } catch (error) {
+    return res.render('users/author_login')
+  }
+});
+ 
 
   router.post('/', async (req, res) => {
-  
-
-    try {
+   try {
       let requestBody = req.body;
       let error =[]
 
@@ -80,19 +85,22 @@ router.get('/', async (req, res) => {
         }
         
         const {username,password} = requestBody;
+        console.log("hello")
         const newUser = await usersData.checkUser(username,password)
        
-
+        console.log("hi")
         if(newUser.authenticated){
           const usertype ="author"
           req.session.user ={username:username,usertype:usertype};
-           res.redirect('/author_index')
+          console.log(req.session.user.username)
+          console.log(req.session.user.usertype)
+          return res.redirect('/author_index')
       
         }
         
      
     } catch (error) {
-      res.render('users/author_login',{errors:error,hasErrors:true})
+      return res.render('users/author_login',{errors:error,hasErrors:true})
     }
   })  
 module.exports = router;

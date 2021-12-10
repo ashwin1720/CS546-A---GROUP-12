@@ -1,15 +1,14 @@
-// const mainRoutes = require('./main');
 const landingRoutes =require('./landingRoutes')
+
 const authorLoginRoutes =require('./author_login')
 const authorSignupRoutes = require('./author_signup')
 const customerLoginRoutes = require('./customer_login')
 const customerSignupRoutes = require('./customer_signup')
 const authorIndexRoutes = require('./author_index')
+const authorUploadRoutes = require('./author_upload')
 
- // const loginRoutes = require('./login');
-// const signupRoutes = require('./signup');
-// const logoutRoutes = require('./logout');
-// const privateRoutes = require('./private');
+
+
 
 const constructorMethod = (app) => {
   app.use('/', landingRoutes)
@@ -18,11 +17,10 @@ const constructorMethod = (app) => {
   app.use('/customer_login',customerLoginRoutes)
   app.use('/customer_signup',customerSignupRoutes)
   app.use('/author_index',authorIndexRoutes)
-
-  // app.use('/login', loginRoutes);
-  // app.use('/signup', signupRoutes);
-  // app.use('/logout', logoutRoutes);
-  // app.use('/private', privateRoutes);
+  app.use('/author_upload', authorUploadRoutes)
+  app.use('/author_index/author_upload', authorUploadRoutes)
+  
+  
   
 
   app.use('*', (req, res) => {

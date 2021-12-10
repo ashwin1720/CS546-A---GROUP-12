@@ -6,11 +6,21 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-       return res.render('users/landing')
+      if (req.session.user && req.session.user.usertype === "author") {
+        return res.redirect('/author_index')
+      }if(req.session.user && req.session.user.usertype === "customer"){
+        return res.redirect('/customer_index')
+      }
+      else{
+        return res.render('users/landing',{
+          titleName:'Welcome to online library'
+        })
+      }
      
     } catch (error) {
-      res.status(500).json({error:error})
+      return res.render('users/landing')
     }
   });
+
 
   module.exports = router;
