@@ -1,5 +1,5 @@
 const express = require('express');
-
+const xss = require('xss');
 const router = express.Router();
 const data = require('../data/authors');
 module.exports = router;
@@ -49,8 +49,9 @@ async function check(str, res){
         //console.log(user_data);
         let un = user_data['email']
         let pw = user_data['password']
+        let authorName = user_data['author_name']
   
-          if(typeof(un)!='string' || typeof(pw)!='string')
+          if(typeof(un)!='string' || typeof(pw)!='string'  || typeof(authorName)!='string')
           {
             res.status(400).render('users/author_signup', {notString:true, titleName:'Signup' });
             return;
@@ -78,7 +79,7 @@ async function check(str, res){
           //     res.status(400).render('users/signup', {pwError:true, titleName:'Signup' });
           //   return;
           // }
-          let bool1 = await data.createUser(un, pw)
+          let bool1 = await data.createUser(un,authorName, pw)
           //console.log(bool1);
           if(bool1===false){
             res.status(500).render('users/error')
