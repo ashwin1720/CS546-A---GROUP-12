@@ -68,4 +68,23 @@ router.get('/', async (req, res) => {
       res.status(500).json({error:error})
     }
   });
+
+
+  router.get('/individual_book_page/read_full/:id', async (req, res) => {
+    try {
+        console.log("Full routes")
+        console.log(req.session.user.username)
+        let full_fname = req.params.id
+        console.log(full_fname)
+        return res.render('users/customer_read_full', {incomingTitle: full_fname})
+
+       
+       //Should call check_bought and if not bought enable only read samlpe button.
+     
+    } catch (error) {
+
+        console.log(error)
+      res.status(500).json({error:error})
+    }
+  });
 module.exports = router;

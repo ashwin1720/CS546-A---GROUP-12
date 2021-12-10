@@ -5,7 +5,7 @@
 var script_tag = document.getElementById('scriptid');
 var file_term = script_tag.getAttribute("data-name");
 const url = 'uploads/'+file_term;
-alert(url)
+//alert(url)
 let pdfDoc = null,
 pageNum = 1,
 pageIsRendering = false,

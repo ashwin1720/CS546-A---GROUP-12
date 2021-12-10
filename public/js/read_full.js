@@ -4,7 +4,7 @@
 
 var script_tag = document.getElementById('scriptid');
 var file_term = script_tag.getAttribute("data-name");
-const url = './docs/'+file_term;
+const url = 'uploads/'+file_term;
 let pdfDoc = null,
 pageNum = 1,
 pageIsRendering = false,
@@ -75,7 +75,7 @@ const showNextPage = () => {
 
 // Get Document
 pdfjsLib
-  .getDocument(url)
+  .getDocument('./../../../public/'+url)
   .promise.then(pdfDoc_ => {
     pdfDoc = pdfDoc_;
 
