@@ -87,4 +87,27 @@ router.get('/', async (req, res) => {
       res.status(500).json({error:error})
     }
   });
+  router.get('/individual_book_page/buy/:id', async (req, res) => {
+    try {
+        //Update user's array
+        //Update number of books purchased inside boosk colection
+        //
+        console.log("Buy routes")
+        console.log(req.session.user.username)
+        let buy_fname = req.params.id
+        console.log(buy_fname)
+        let bool1 = await data.buy_book(req.session.user.username, buy_fname)
+        console.log(bool1)
+        //return res.render('users/customer_read_full', {incomingTitle: full_fname})
+        res.redirect('/customer_index')
+
+       
+       //Should call check_bought and if not bought enable only read samlpe button.
+     
+    } catch (error) {
+
+        console.log(error)
+      res.status(500).json({error:error})
+    }
+  });
 module.exports = router;

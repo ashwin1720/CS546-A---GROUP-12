@@ -25,22 +25,7 @@ router.get('/', async (req, res) => {
     }
   });
   
-  //create new book
-  // router.get('/author_create_newbook', async (req, res) => {
-  //   try {
-  //     if(req.session.user && req.session.user.usertype === "author"){
-  //       return res.render('users/author_create_newbook',{username:req.session.user.username,
-  //         usertype:req.session.user.usertype,
-  //         titleName:'Create new book'})
-  //     }
-  //     else{
-  //       return res.redirect('/')
-  //     }
-  //   } catch (error) {
-  //     res.status(500).json({error:error})
-  //   }
-  // });
-
+  
 
 
 

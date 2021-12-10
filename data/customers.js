@@ -148,14 +148,63 @@ async function check_bought(username, fname){
     else{
         return true;
     }
-    
-
 }
+    async function buy_book(username, fname){
+        console.log("Inside buy function")
+        const booksColl = await books();
+        const booksList = await booksColl.find({}).toArray();
+        let ivaluebooks=0
+        let jvaluecust=0;
+        for(let i=0;i<booksList.length;i++){
+            if(booksList[i].filename===fname){
+                console.log("File Name Matched")
+                ivaluebooks=i;
+                break;
+            }      
+}
+let newPur = booksList[ivaluebooks].numberOfPurchase+1;
+//console.log(booksList[ivaluebooks].numberOfPurchase)
+const updatedbook = {
+       numberOfPurchase: newPur
+}
+const updatedInfo = await booksColl.updateOne(
+    { filename: fname },
+    { $set: updatedbook }
+  );
+        const usersCollection = await customers();
+    const usersList = await usersCollection.find({}).toArray();
+    //let bought_books; 
+    for(let j=0;j<usersList.length;j++){
+        if(usersList[j].username===username){
+            console.log("Username Matched Successfully")
+            jvaluecust=j;
+            break;
+        }
+    }
+    console.log(usersList)
+    console.log(usersList[jvaluecust])
+    console.log(usersList[jvaluecust].booksPurchased)
+    usersList[jvaluecust].booksPurchased.push(fname);
+    let newArr = usersList[jvaluecust].booksPurchased
+    console.log('Updatedddddddd');
+//console.log(booksList[ivaluebooks].numberOfPurchase)
+const updatedcust = {
+       booksPurchased: newArr
+}
+const updatedInfo1 = await usersCollection.updateOne(
+    { username: username },
+    { $set: updatedcust }
+  );
+    return true;
+    }
+
+
 
 module.exports = {
     index_content,
     
     createUser,
     checkUser,
-    check_bought
+    check_bought,
+    buy_book
 }

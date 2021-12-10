@@ -7,6 +7,7 @@ const customerSignupRoutes = require('./customer_signup')
 const authorIndexRoutes = require('./author_index')
 const authorUploadRoutes = require('./author_upload')
 const authorLogoutRoutes = require('./author_logout')
+const customerIndexRoutes = require('./customer_index')
 
 
 
@@ -22,6 +23,9 @@ const constructorMethod = (app) => {
   app.use('/author_upload', authorUploadRoutes)
   app.use('/author_index/author_upload', authorUploadRoutes)
   app.use('/author_logout', authorLogoutRoutes)
+
+
+  app.use('/customer_index', customerIndexRoutes)
 
   
   

@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
             console.log(filename);
             let newfilename = filename.slice(0, -4)
             console.log(newfilename)
-            newfilename = newfilename+objectId+".pdf"
+            newfilename = objectId+".pdf"
             file.mv('./public/uploads/'+newfilename,async function(err){
                 if(err){
                     res.render('users/error')

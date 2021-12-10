@@ -4,8 +4,8 @@
     <nav>   
         <a href="/author_index"></a>
         <ul>
-           <li>  <a href="/customer_library">My books</a> </li> 
-            <li> <a href="/author_index/customer_update_personal_details"> Update Personal Details</a></li>
+           <li>  <a href="/customer_index/customer_library">My books</a> </li> 
+            <li> <a href="/customer_index/customer_update_personal_details"> Update Personal Details</a></li>
         </ul>
     {{#each listofbooks}}
     <li> <a href="/customer_index/individual_book_page/{{this.filename}}">{{this.bookname}} </a>  </li>
