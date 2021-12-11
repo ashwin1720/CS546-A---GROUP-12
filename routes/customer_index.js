@@ -116,17 +116,10 @@ router.get('/', async (req, res) => {
   });
   router.get('/customer_library', async (req, res) => {
     try {
-        
-        console.log("Library routes")
-        //console.log(req.session.user.username)
-        //let buy_fname = req.params.id
-        //console.log(buy_fname)
         let bool1 = await data.library(req.session.user.username)
-        //console.log(bool1)
         return res.render('users/customer_library', {purchasedBooks: bool1})
      
     } catch (error) {
-
         console.log(error)
       res.status(500).json({error:error})
     }

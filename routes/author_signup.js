@@ -26,12 +26,6 @@ async function check(str, res){
   }
 
   router.get('/', async (req, res) => {
-    // if (!req.session.user && !req.session.user.usertype ==="author") {
-    //     res.redirect('/author_index',{titleName:'Author Main Page'});
-    //   } else {
-    //     res.render('users/author_signup',{titleName:'Signup'})
-    //   }
-
     try {
       if(!req.session.user){
         return res.render('users/author_signup',{titleName:'Author Signup'})
@@ -82,7 +76,7 @@ async function check(str, res){
           let bool1 = await data.createUser(un,authorName, pw)
           //console.log(bool1);
           if(bool1===false){
-            res.status(500).render('users/error')
+            res.render('users/author_signup', {already:true})
           }
           if(bool1['userInserted']===true){
             console.log('Success !!!')

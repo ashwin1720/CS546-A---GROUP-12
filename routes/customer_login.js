@@ -85,15 +85,10 @@ router.get('/', async (req, res) => {
         }
         
         const {username,password} = requestBody;
-        console.log("hello")
         const newUser = await data.checkUser(username,password)
-       
-        console.log("hi")
         if(newUser.authenticated){
           const usertype ="customer"
           req.session.user ={username:usernameLower,usertype:usertype};
-          console.log(req.session.user.username)
-          console.log(req.session.user.usertype)
           return res.redirect('/customer_index')
       
         }

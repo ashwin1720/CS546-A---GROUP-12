@@ -1,7 +1,9 @@
 <main>
+  
 <div class="signupContainer">
 
     <div class="columnAuthorSignup">
+      <a href="/">Go Back To Main Menu</a>
             <h1>Author Signup Here</h1>
             <form action="/author_signup" method="POST" class="author-signup-form" id="author-signup-form">
 
@@ -36,6 +38,9 @@
                   </ul>
           </nav>
           </footer>
+          {{#if already}}
+          <p>Username already taken</p>
+          {{/if}}
           {{#if notString}}
           <p class="error">Either ussername/password not in correct format. Username should be atleast 4 characters and password should be atleast 6 characters both without any spaces.</p>
           {{/if}}

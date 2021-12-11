@@ -1,18 +1,26 @@
+const { Console } = require('console');
 const express = require('express');
 
 const router = express.Router();
 const data = require('../data');
 const bookListData = data.authors;
+const alert = require('alert')
 //display all books here
 router.get('/', async (req, res) => {
     try {
       
       if(req.session.user && req.session.user.usertype == "author"){
         
-        let list = await bookListData.displayBooks(req.session.user.username)
+        let list = []
+        list = await bookListData.displayBooks(req.session.user.username)
         
-   
-        return res.render('users/author_index',{  listofbooks: list ,username:req.session.user.username,
+        //console.log(list[0])
+        if(list[0]==='error'){
+          return res.render('users/author_index', {nobooks:true, username:req.session.user.username,
+            usertype:req.session.user.usertype,
+            titleName:'Author Main Page'})
+        }
+        return res.render('users/author_index',{listofbooks: list ,username:req.session.user.username,
           usertype:req.session.user.usertype,
           titleName:'Author Main Page'})
       }
@@ -55,14 +63,7 @@ router.get('/', async (req, res) => {
   router.get('/author_update_personal_details', async (req, res) => {
     
     try {
-     
-      
-
       if (req.session.user && req.session.user.usertype === "author") {
-
-        console.log("outside")
-        console.log(req.session.user.username)
-
         let toUpdateAuthorDetails = await bookListData.getAuthorDetails(req.session.user.username)
         console.log(toUpdateAuthorDetails)
         return res.render('users/author_update_personal_details',{username:req.session.user.username,
@@ -72,87 +73,56 @@ router.get('/', async (req, res) => {
       }
      
     } catch (error) {
+      console.log(error)
       return res.render('users/author_login')
     }
   });
 
-  router.post('/', async (req, res) => {
+  router.post('/author_update_personal_details', async (req, res) => {
     try {
-       let requestBody = xss(req.body);
+       let requestBody = req.body;
        let error =[]
- 
-       if(!requestBody.username || !requestBody.password){
-         error.push('Passowrd or username cannot be empty')
-         res.status(400).render('users/author_login', {errors:error, titleName:'Login' ,hasErrors: true,});
+       console.log(req.session)
+       let toUpdateAuthorDetails = await bookListData.getAuthorDetails(req.session.user.username)
+       if(!requestBody.authorName && !requestBody.password){
+         error.push('Password and name cannot be empty')
+         res.status(400).render('users/author_update_personal_details', {errors:error, titleName:'Update' ,hasErrors: true,  authorsDetails:toUpdateAuthorDetails});
          return;
        }
- 
-       if(requestBody.username.length<4){
-         error.push('username should be atleast 4 characters')
-       
-         return res.status(400).render('users/author_login', {
-           errors: error,
-           titleName:'Login',
-           hasErrors: true,
-           });
-        
-       }
- 
-       if(hasWhiteSpace(requestBody.username)){
-         error.push('username cannot have spaces')
-         
-         return res.render('users/author_login', {
-           errors: error,
-           titleName:'Login',
-           hasErrors: true,
-           });
-         
-       } 
- 
        function hasWhiteSpace(s) {
          return /\s/g.test(s);
         
        }
- 
-       let usernameLower = requestBody.username.toLowerCase();
- 
-       if (!usernameLower.match(/^[0-9a-z]+$/)){
-         error.push('username should be alphanumeric')
-         return res.status(400).res.render('users/author_login', {
-           errors: error,
-           titleName:'Login',
-           hasErrors: true,
-           });
-       
-       } 
- 
-       if(requestBody.password.length<6){
-         error.push('password should be atleast 6 characters')
-        
-         return res.status(400).render('users/author_login', {
-           errors: error,
-           titleName:'Login',
-           hasErrors: true,
-           });
- 
-         }
+       if(hasWhiteSpace(requestBody.authorName)){
+        error.push('Name cannot have spaces')
+        return res.status(400).res.render('users/author_update_personal_details', {
+          errors: error,
+          titleName:'Update',
+          hasErrors: true,
+          authorsDetails:toUpdateAuthorDetails
+          });
+      }
+      if(hasWhiteSpace(requestBody.password)){
+        error.push('Password cannot have spaces')
+        return res.status(400).res.render('users/author_update_personal_details', {
+          errors: error,
+          titleName:'Update',
+          hasErrors: true,
+          authorsDetails:toUpdateAuthorDetails
+          });
+      }         
+         const {authorName,password} = requestBody;
          
-         const {username,authorName,password} = requestBody;
-         
-        const newAuthorDetails = await bookListData.updateAuthorDetails(req.session.user.username,username,authorName,password)
+        const newAuthorDetails = await bookListData.updateAuthorDetails(req.session.user.username,authorName,password)
         
          if(newAuthorDetails.authenticated){
           req.session.destroy();
-           return res.redirect('/author_login')
-       
+          return res.render('users/logged_out')
          }
-         
-      
      } catch (error) {
-       return res.render('users/author_login',{errors:error,hasErrors:true})
+       console.log(error)
+       return res.status(400).render('users/author_update_personal_details',{errors:error,hasErrors:true, authorsDetails:toUpdateAuthorDetails})
      }
    })  
 
-
   module.exports = router;
-

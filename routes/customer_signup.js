@@ -2,7 +2,6 @@ const express = require('express');
 
 const router = express.Router();
 const data = require('../data/customers');
-//const usersData = data.users;
 
 async function check(str, res){
   if(str.length==0){
@@ -80,12 +79,10 @@ router.post('/', async (req, res) => {
         //   return;
         // }
         let bool1 = await data.createUser(custname, un, pw)
-        //console.log(bool1);
         if(bool1===false){
           res.status(500).render('users/error')
         }
         if(bool1['userInserted']===true){
-          console.log('Success !!!')
           res.redirect('/customer_login')
         }
         

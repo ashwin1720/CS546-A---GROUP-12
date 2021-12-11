@@ -16,11 +16,7 @@
     </nav>
 
 </header>
-
-<h4>this is User name</h4>
-<p>{{authorsDetails.username}}</p>
-<br>
-<h4>this is Name</h4>
+<h4>This Is Current Name</h4>
 <p>{{authorsDetails.authorName}}</p>
 
 <br>
@@ -28,19 +24,17 @@
 <br>
 
 <h3>
-    update user details
+    Update Details Here
 </h3>
 <form action="/author_index/author_update_personal_details" method="POST" class="author_update_personal_details">
 
          <div class="author_update_personal_details">
-         <label for="username">Select new username</label>
-         <input type="text" name="username" placeholder="{{authorsDetails.username}}" id="author_username" required>
 
-         <label for="authorName">Enter New name</label>
-         <input type="text" name="authorName" placeholder="{{authorsDetails.authorName}}" id="author_name" required>
-      
+         <label for="authorName">Enter New name </label>
+         <input type="text" name="authorName" placeholder="{{authorsDetails.authorName}}" id="author_name">
+     
             <label for="password">Password</label> 
-            <input type="password" name="password" placeholder="Should be grater than 4 characters" id="author_password" required>
+            <input type="password" name="password" placeholder="Should be grater than 4 characters" id="author_password">
          </div>
 
          <button type="submit">Change</button>

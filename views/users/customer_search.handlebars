@@ -14,7 +14,7 @@
 </header> 
 
 <h1></h1>search for author,bookname or category here</h1>
-<form action="searchForm" id="searchForm">
+<form action="" id="searchForm">
             <input type="text" name="search_term" placeholder="Search books,author,category" id="search_term">
             <label for="search_term">Search Books</label>
             <button type="submit" value="Submit" id="searchButton">Search</button>
@@ -24,7 +24,7 @@
 
         </div>
 
- <p id="error1">Search field cannot be empty</p>
+ <p id="error1" hidden>Search field cannot be empty</p>
         <div class="errors">
             <ol id="attempts"></ol>
           </div>
@@ -38,10 +38,6 @@
                  
         </ul>
 
-  {{#each listofbooks}}
-    <li> <a href="/customer_index/individual_book_page/{{this.filename}}">{{this.bookname}} </a>  </li>
-    
-    {{/each}}
-<div id="livesearch" class="searchhide">This</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="/public/js/searchScript.js"></script>
 </main>

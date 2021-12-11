@@ -1,8 +1,8 @@
 const express = require('express');
+
 const xss = require('xss');
 const router = express.Router();
 const usersData = require('../data/authors');
-// const usersData = data.users;
 
 router.get('/', async (req, res) => {
   try {
@@ -60,7 +60,6 @@ router.get('/', async (req, res) => {
         return /\s/g.test(s);
        
       }
-
       let usernameLower = requestBody.username.toLowerCase();
 
       if (!usernameLower.match(/^[0-9a-z]+$/)){
@@ -83,24 +82,14 @@ router.get('/', async (req, res) => {
           });
 
         }
-        
         const {username,password} = requestBody;
-        // console.log("hello")
         const newUser = await usersData.checkUser(username,password)
-       
-        // console.log("hi")
         if(newUser.authenticated){
           const usertype ="author"
-          req.session.user ={username:username,usertype:usertype,authorName:newUser.authorName};
-          // console.log(newUser.authorName)
-          
-          // console.log(req.session.user.username)
-          // console.log(req.session.user.usertype)
+          req.session.user ={username:usernameLower,usertype:usertype,authorName:newUser.authorName};
           return res.redirect('/author_index')
       
         }
-        
-     
     } catch (error) {
       return res.render('users/author_login',{errors:error,hasErrors:true})
     }

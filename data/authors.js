@@ -18,7 +18,8 @@ async function createUser(username,authorName, password){
     const authorsColl = await authors();
     const authorsList = await authorsColl.find({}).toArray();
     for(let i=0;i<authorsList.length;i++){
-        if(authorsList[i].username === username) throw 'Error: Author Already Exists.'
+        if(authorsList[i].username === username) 
+        return false;
     }
     const hash = await bcrypt.hash(password, saltRounds);
     let newUser = {
@@ -130,10 +131,8 @@ async function createBook(bookname, authorName, authorUserName, price, descripti
         filename: filename
     };
     const insertInfo = await booksColl.insertOne(newBook)
-    console.log("ronaldo")
     if(insertInfo.insertedCount!== 0){
         const newId= insertInfo.insertedId;
-        // return trueObj;
         return true;
     }
 }
@@ -142,10 +141,7 @@ async function displayBooks(authorusername){
     const booksList = await booksColl.find({}).toArray();
     const recentsColl = await recents();
     const recentsList = await recentsColl.find({}).toArray();
-    // console.log("Delete")
-    // const delInfo = recentsColl.deleteOne({"bookname": "ABC"})
-    // console.log(delInfo)
-    let noBooks = "No books please add new books"
+    let noBooks = "error"
     let bookArray = [];
     
     for(let i=0;i<booksList.length;i++){
@@ -154,19 +150,14 @@ async function displayBooks(authorusername){
                     bookObj["filename"]=booksList[i].filename
                     bookObj["bookname"]=booksList[i].bookname
                     bookArray.push(bookObj)
-                    // console.log("Inside for loop")
-                    // console.log(bookArray)
         }
        
     }
     
     if(bookArray.length === 0){
-        // console.log("hi")
         bookArray.push(noBooks)
         return bookArray
     }
-//     console.log("Inside display books")
-//    console.log(bookArray)
     return bookArray
 }
 async function search_book(fname){
@@ -186,13 +177,12 @@ async function search_book(fname){
         }
 
 }
-
-
-
 return revObj; 
 }
 
 async function getAuthorDetails(username){
+    console.log(username)
+    username=username.toLowerCase()
     const userCollection = await authors();
    
     console.log("inside getAuthorDetail")
@@ -200,89 +190,65 @@ async function getAuthorDetails(username){
         { username : username },
           {projection:{username:1 , password:1,authorName:1}}
     );
-    console.log(userFind.authorName)
+    console.log(userFind)
     return userFind
 }
 
-async function updateAuthorDetails(oldusername,newusername,authorName,password){
-    const userCollection = await authors();
+async function updateAuthorDetails(oldusername,authorName,password){
+    const userCollection = await authors()
 
 
-    //_______
-
-
-    if(!newusername || !password ||!authorName) throw 'username and password must be provided'
-    if(newusername.length  < 4) throw 'username should be atleast 4 characters long'
-
-    if(hasWhiteSpace(newusername)){
-        throw'username cannot have spaces'
-        
-      } 
-      if(hasWhiteSpace(password)){
-       throw 'password should not contain spaces'
-        
-      } 
-
-      if(hasWhiteSpace(authorName)){
-        throw 'name should not contain spaces'
-         
-       } 
-      function hasWhiteSpace(s) {
+    function hasWhiteSpace(s) {
         return /\s/g.test(s);
        }
 
-       let oldusernameLower = oldusername.toLowerCase();
-       let newusernameLower = newusername.toLowerCase();
-
-    //    if(oldusername === newusernameLower){
-    //        throw "New user name cannot be same as old user"
-    //    }
-
-       if (!newusernameLower.match(/^[0-9a-z]+$/)){
-        throw 'username should be alphanumeric'
-         
-       } 
-       if(password.length<6){
-       throw 'password should be atleast 6 characters'
-         } 
-
-     
-
-         const userInfo = await  userCollection.findOne({username:newusernameLower})
-
-         if(userInfo !== null) throw 'Username already exists'
-
-    //__________
-   
-    // console.log("inside getAuthorDetail")
-    const hashpassword = await bcrypt.hash(password, saltRounds);
-    let newAuthorDetails = {
-       username:newusernameLower,
-       authorName:authorName,
-       password:hashpassword
-}
+    if(authorName){
+        if(hasWhiteSpace(authorName)){
+            throw 'name should not contain spaces'
+           } 
+           let oldusernameLower = oldusername.toLowerCase();
     
-
+    let newAuthorDetails = {
+       authorName:authorName,
+}
     const updatedAuthorInfo = await userCollection.updateOne(
         { username: oldusernameLower },
         { $set: newAuthorDetails}
       );
-      
-
       if (updatedAuthorInfo.modifiedCount === 0) {
         throw 'could not update author details successfully';
       }
+
+    }
+    if(password){
+        if(hasWhiteSpace(password)){
+            throw 'password should not contain spaces'
+           } 
+           if(password.length<6){
+            throw 'password should be atleast 6 characters'
+              }
+              const hashpassword = await bcrypt.hash(password, saltRounds);
+              let oldusernameLower = oldusername.toLowerCase();
+    
+    let newAuthorDetails = {
+       password:hashpassword
+}
+    const updatedAuthorInfo = await userCollection.updateOne(
+        { username: oldusernameLower },
+        { $set: newAuthorDetails}
+      );
+      if (updatedAuthorInfo.modifiedCount === 0) {
+        throw 'could not update author details successfully';
+      }
+
+    }
+    
+      
+      
       let ret ={}
       ret.authenticated = true
-      
-  
       return ret
  }
-
-
-
-
-
 module.exports = {
     createUser,
     checkUser,
@@ -290,6 +256,5 @@ module.exports = {
     displayBooks,
     search_book,
     getAuthorDetails,
-    updateAuthorDetails,
-    
+    updateAuthorDetails
 }
