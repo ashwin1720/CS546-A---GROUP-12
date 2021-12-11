@@ -38,6 +38,7 @@ async function createUser(username,authorName, password){
 }
 
 async function checkUser(username,password){
+    console.log("COming inside")
 
     if(!username || !password) throw 'username and password must be provided'
     if(username.length  < 4) throw 'username should be atleast 4 characters long'

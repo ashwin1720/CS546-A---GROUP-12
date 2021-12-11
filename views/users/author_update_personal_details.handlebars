@@ -26,7 +26,7 @@
 <h3>
     Update Details Here
 </h3>
-<form action="/author_index/author_update_personal_details" method="POST" class="author_update_personal_details">
+<form action="/author_index/author_update_personal_details" method="POST" class="author_update_personal_details" id="author_update_form">
 
          <div class="author_update_personal_details">
 
@@ -38,10 +38,11 @@
          </div>
 
          <button type="submit">Change</button>
-
-         {{#if hasErrors}}
+         </form>
+          {{#if hasErrors}}
                <p class="errors"> {{errors}}.</p>
          {{/if}}
         
-         </form>
+         <div class="error" id="error" hidden></div>
+        <script src="/public/js/author_upload.js"></script>
 </main>

@@ -11,18 +11,10 @@
 
                       <label for="name">Name </label>
                           <input  type="text" name="name" id="author_name" placeholder="Enter Name"  required />
-                     
-                    
-                
-
                   <label for="username">
                     Username
                     <input type="text" name="username" id="author_username" placeholder="Select a username"  required />
                   </label>
-
-                
-
-
                   <label for="password">
                     Password
                     <input type="password" name="password" id="password" placeholder="Enter The Passsword"  required/>
@@ -37,6 +29,7 @@
                       <li><a href="/author_login">Already have an account? Click here to log-in</a></li>
                   </ul>
           </nav>
+          <div class="error" id="error" hidden></div>
           </footer>
           {{#if already}}
           <p>Username already taken</p>
@@ -58,4 +51,5 @@
           {{/if}}
     </div>
 </div>
+<script src="/public/js/author_signup.js"></script>
 </main>

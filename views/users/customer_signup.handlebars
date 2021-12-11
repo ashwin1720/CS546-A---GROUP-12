@@ -22,8 +22,10 @@
   <nav>
         <ul>
             <li><a href="/customer_login">Already have an account? Click here to log-in</a></li>
+
         </ul>
 </nav>
+<div class="error" id="error" hidden></div>
 </footer>
 {{#if notString}}
 <p class="error">Either ussername/password not in correct format. Username should be atleast 4 characters and password should be atleast 6 characters both without any spaces.</p>
@@ -40,5 +42,5 @@
 {{#if isEmptyPw}}
 <p class="error">Enter password.</p>
 {{/if}}
-
+<script src="/public/js/customer_signup.js"></script>
 </main>

@@ -4,7 +4,7 @@
       <div class="columnAuthorLogin">
          <a href="/">Go Back To Main Menu</a>
          <h1>Author Login</h1>
-         <form action="/author_login" method="POST" class="loginForm">
+         <form action="/author_login" method="POST" class="loginForm" id="loginForm">
 
          <div class="authorLoginLabels">
          <label for="username">Username</label>
@@ -15,15 +15,18 @@
          </div>
 
          <button type="submit">LOGIN</button>
+         
 
          {{#if hasErrors}}
-               <p class="errors"> {{errors}}.</p>
+               <div class="error" id="error1"> {{errors}}.</div>
          {{/if}}
          <footer>
             <a href="/author_signup">Need to register as an Author? Click here to sign-up</a>
+            <div class="error" id="error" hidden></div>
          </footer>
+         
          </form>
-
+   <script src="/public/js/author_login.js"></script>
 
       </div>
          
