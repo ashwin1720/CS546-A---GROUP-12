@@ -18,8 +18,7 @@ if (myForm) {
             event.preventDefault();
         }
         else if(password.value.trim().length<6){
-            name1.value=name3;
-            username.value=un
+            name1.value=name1.value;
             password.value='';
             errorDiv.hidden = false;
             errorDiv.innerHTML = "Password Should Be Of Atleast 6 Characters Long.";
@@ -29,7 +28,7 @@ if (myForm) {
             return true;
         }
 
-        myForm.reset();
+        // myForm.reset();
       } else {
         name1.value=''
         password.value='';

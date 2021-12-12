@@ -25,12 +25,13 @@ router.post('/', async (req, res) => {
         //console.log(req.body)
         let details=req.body;
         //console.log(req.body);
-        let bookname = xss(req.body.bookname)
+        let bookname = xss(req.body.bookname.toLowerCase())
         let price = xss(req.body.price)
         let description = xss(req.body.description)
-        let category = xss(req.body.category)
-        let authorname=xss(req.session.user.authorName);
-        let authorusername = xss(req.session.user.username)
+        let category = xss(req.body.category.toLowerCase())
+        let authorname=xss(req.session.user.authorName.toLowerCase());
+        let authorusername = xss(req.session.user.username.toLowerCase())
+        
 
         if(req.files){
             var file = req.files.file;

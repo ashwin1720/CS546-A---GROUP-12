@@ -6,12 +6,7 @@ var password = document.getElementById('author_password')
 
 if (myForm) {
     myForm.addEventListener('submit', (event) => {
-      
-      
-      unVal = username.value
-      pwVal = password.value
-        // alert(unVal)
-        // alert(pwVal)
+     
       if (username.value.trim() && password.value.trim()) {
         alert("Iffffff")
         if (/\s/.test(username.value.trim()) || /\s/.test(password.value.trim())) {
@@ -22,6 +17,7 @@ if (myForm) {
         event.preventDefault();
         }
         else if(password.value.trim().length<6){
+          username.value-username.value
             password.value='';
             errorDiv.hidden = false;
 
@@ -41,7 +37,7 @@ if (myForm) {
             return true;
         }
 
-        myForm.reset();
+        // myForm.reset();
       } else {
         username.value = '';
         password.value='';

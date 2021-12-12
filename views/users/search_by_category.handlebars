@@ -1,5 +1,7 @@
 <main>
 
+<div class="categorysearchwrapper">
+
 
 <header>
 <div class="customerSearchDiv">
@@ -7,17 +9,19 @@
        
         <a href="/customer_index"></a>
         <ul>
-           <li>  <a href="/customer_index">My books</a> </li> 
+           <li>  <a href="/customer_index">Home</a> </li> 
              <li><a href="/author_logout">Logout</a></li>
         </ul>
 </div>   
 </header> 
 
-<h1></h1>search for author,bookname or category here</h1>
-<form action="" id="searchForm">
-            <input type="text" name="search_term" placeholder="Search books,author,category" id="search_term">
+<h1> Search by Category like Action and Adventure Classics,Comic Book or Graphic Novel</h1>
+<form action="/customer_index/search_by_category" id="searchForm1">
+<h1>ABCDertyui</h1>
+            <input type="text" name="search_term" placeholder="Search books  by category" id="search_term">
             <label for="search_term">Search Books</label>
-            <button type="submit" value="Submit" id="searchButton">Search</button>
+            <button type="submit" value="Submit" id="searchButton" class="searchButton">Search</button>
+            <i class="fa-solid fa-magnifying-glass"></i>
  </form>
 
   <div id="myErrors">
@@ -37,10 +41,13 @@
          <ul id="bookList">
                  
         </ul>
-
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="/public/js/searchScript.js"></script>
+<script src="/public/js/categorySearchScript.js"></script>
+
+
 {{#if hasErrors}}
 <p class="error">{{error}}</p>
 {{/if}}
 </main>
+

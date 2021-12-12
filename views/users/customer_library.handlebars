@@ -1,6 +1,9 @@
 <h1>Welcome To Your Library</h1>
 
 
+{{#if nobooks}}
+<h3>You have not purchased any books yet</h3>
+{{/if}}
 {{#each purchasedBooks}}
     <li> <a href="/customer_index/individual_book_page/{{this.filename}}">{{this.bookname}} </a>  </li>
 {{/each}}

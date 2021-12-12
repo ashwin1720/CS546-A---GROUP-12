@@ -23,5 +23,7 @@
 <div class="error" id="error" hidden></div>
 </footer>
 <script src="/public/js/customer_login.js"></script>
-
+{{#if hasErrors}}
+<p class="error">{{errors}}</p>
+{{/if}}
 </main>

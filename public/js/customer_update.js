@@ -29,7 +29,7 @@ if (myForm) {
             return true;
         }
 
-        myForm.reset();
+        // myForm.reset();
       } else {
         name1.value=''
         password.value='';

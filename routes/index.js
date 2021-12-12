@@ -9,6 +9,8 @@ const authorUploadRoutes = require('./author_upload')
 const authorLogoutRoutes = require('./author_logout')
 const customerIndexRoutes = require('./customer_index')
 const customerSearchRoutes = require('./customer_search')
+const categorySearchRoutes = require('./category_search')
+
 
 
 const constructorMethod = (app) => {
@@ -24,6 +26,7 @@ const constructorMethod = (app) => {
 
   app.use('/customer_index', customerIndexRoutes)
   app.use('/customer_index/customer_search', customerSearchRoutes)
+  app.use('/customer_index/search_by_category', categorySearchRoutes)
   app.use('*', (req, res) => {
     res.status(404).json({ error: 'Not found !!!' });
   });

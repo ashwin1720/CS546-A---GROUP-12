@@ -12,6 +12,10 @@ async function createUser(custname, username, password){
     username=username.trim()
     password=password.trim()
     username=username.toLowerCase();
+    if(!custname || !username || !password) throw 'Fields cannot be empty.'
+    if(typeof(custname)!='string' || typeof(username)!='string'|| typeof(password)!='string') throw 'Error: Data should be string'
+    if(username.length<4) throw 'Error: Username should be atleast of 4 characters.'
+    if(password.length<6) throw 'Error: Passsword should be atleast of 6 characters.'
     const customersColl = await customers();
     const customersList = await customersColl.find({}).toArray();
     for(let i=0;i<customersList.length;i++){
@@ -31,13 +35,17 @@ async function createUser(custname, username, password){
         return trueObj;
     }
     else{
-        return false; 
+        throw 'Error: Unable to create account.'
     }
 }
 
 async function checkUser(username,password){
-    if(!username || !password) throw 'username and password must be provided'
-    if(username.length  < 4) throw 'username should be atleast 4 characters long'
+    username=username.trim().toLowerCase();
+    password=password.trim();
+    if(!username || !password) throw 'Fields cannot be empty.'
+    if(typeof(username)!='string'|| typeof(password)!='string') throw 'Error: Data should be string'
+    if(username.length<4) throw 'Error: Username should be atleast of 4 characters.'
+    if(password.length<6) throw 'Error: Passsword should be atleast of 6 characters.'
 
     if(hasWhiteSpace(username)){
         throw'username cannot have spaces'
@@ -91,6 +99,8 @@ async function index_content(){
     const booksList = await booksColl.find({}).toArray();
     let bookArray = [];
     
+    console.log(booksList.length)
+    
     //Have to write error condition when bookslist is empty.
     for(let i=0;i<booksList.length;i++){
         let bookObj = {}
@@ -105,6 +115,15 @@ async function index_content(){
 async function check_bought(username, fname){
     //Display individual books, before that call this function to check whether the user
     //has bought the book or not and display buy button if not bought yet and if bought shw button to read. 
+
+
+    username=username.trim().toLowerCase();
+    fname=fname.trim()
+    if(!username || !fname){
+        throw 'Error: Something went wrong'
+    }
+    if(typeof(username)!='string'|| typeof(fname)!='string') throw 'Error: Data should be string'
+    if(username.length<4) throw 'Error: Username should be atleast of 4 characters.'
     const usersCollection = await customers();
     const usersList = await usersCollection.find({}).toArray();
     let bought_books; 
@@ -135,6 +154,14 @@ async function check_bought(username, fname){
     }
 }
     async function buy_book(username, fname){
+        username=username.trim().toLowerCase();
+        fname=fname.trim();
+
+    if(!username || !fname){
+        throw 'Error: Something went wrong'
+    }
+    if(typeof(username)!='string'|| typeof(fname)!='string') throw 'Error: Data should be string'
+    if(username.length<4) throw 'Error: Username should be atleast of 4 characters.'
         const booksColl = await books();
         const booksList = await booksColl.find({}).toArray();
         let ivaluebooks=0
@@ -153,6 +180,7 @@ const updatedInfo = await booksColl.updateOne(
     { filename: fname },
     { $set: updatedbook }
   );
+  if(updatedInfo.modifiedCount<1) throw 'Error: Unable to purchase.'
         const usersCollection = await customers();
     const usersList = await usersCollection.find({}).toArray();
     for(let j=0;j<usersList.length;j++){
@@ -170,6 +198,7 @@ const updatedInfo1 = await usersCollection.updateOne(
     { username: username },
     { $set: updatedcust }
   );
+  if(updatedInfo1.modifiedCount<1) throw 'Error: Unable to purchase.'
     return true;
     }
 
@@ -177,14 +206,13 @@ async function recently_added(){
     const recentsColl = await recents();
     const recentsList = await recentsColl.find({}).toArray();
     let recentsArray = [];
-    
-    //Have to write error condition when recents is empty.
     for(let i=0;i<recentsList.length;i++){
         let recentsObj = {}
                     recentsObj["filename"]=recentsList[i].filename
                     recentsObj["bookname"]=recentsList[i].bookname
                     recentsArray.push(recentsObj)
     }
+    //if(recentsArray.length===0) throw 'No recently added'
     return recentsArray
 }
 
@@ -218,26 +246,38 @@ return purArray
 }
 
 async function searchBook(searchedTerm){
-        
+    searchedTerm=searchedTerm.trim();
+    if(!searchedTerm) throw 'Error: Search Term Is Empty.'
     const booksColl = await books();
     const booksList = await booksColl.find({ $or :[{bookname:searchedTerm.toLowerCase()} , {authorName:searchedTerm.toLowerCase()}, {bookname:searchedTerm.toUpperCase()} , {authorName:searchedTerm.toUpperCase()}]
     }).toArray();
-   
-console.log("Inside search functionnnnnnnnnnnnnnnnnnnnnnn")
-console.log(booksList)
-
-return booksList; 
+    console.log("Search")
+    console.log(booksList)
+    if(booksList.length===0) throw 'Error: Not Found'
+    return booksList; 
 
 }
+async function searchCategory(searchedTerm){
+    
+    let searchedTermTrim = searchedTerm.trim();
+    if(!searchedTermTrim) throw 'Error: Search Term Is Empty.'
+    let searchedTermlower = searchedTermTrim.toLowerCase();
+    const booksColl = await books();
+    const booksList = await booksColl.find({ $or :[{category:searchedTermlower} ]
+    }).toArray();
+    if(booksList.length===0) throw 'Error: Not Found'
+    return booksList; 
 
+}
 module.exports = {
     index_content,
-    
     createUser,
+
     checkUser,
     check_bought,
     buy_book,
     recently_added,
     library,
-    searchBook
+    searchBook,
+    searchCategory
 }

@@ -24,10 +24,10 @@ if (myForm) {
             event.preventDefault();
         }
         else if(description.value.trim().length<600){
-            name1.value=name3;
-            price.value=price3
-            description.value=desc3;
-            category.value=cat3;
+            name1.value=name1.value;
+            price.value=price.value
+            description.value=description.value;
+            category.value=category.value;
             errorDiv.hidden = false;
             errorDiv.innerHTML = "Description Should Be Of Atleast 600 Characters Long (Approximately 90 To 150 Words).";
             event.preventDefault();
@@ -36,7 +36,7 @@ if (myForm) {
             return true;
         }
 
-        myForm.reset();
+        // myForm.reset();
       } else {
         name1.value='';
         price.value='';

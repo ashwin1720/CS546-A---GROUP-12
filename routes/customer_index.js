@@ -12,8 +12,14 @@ router.get('/', async (req, res) => {
           let un = xss(req.session.user.username)
           let utype = xss(req.session.user.usertype)
             let list = await data.index_content()
+            console.log(list.length)
+            if(list.length===0){
+              return res.render('users/customer_index',{nobooks: true,username:un,
+                usertype:utype,
+                titleName:'Customer Main Page'})
+            }
             let recentList = await data.recently_added();
-            return res.render('users/customer_index',{listofrecent: recentList, listofbooks: list ,username:un,
+            return res.render('users/customer_index',{books: true, listofrecent: recentList, listofbooks: list ,username:un,
               usertype:utype,
               titleName:'Customer Main Page'})
           }
@@ -77,6 +83,11 @@ router.get('/', async (req, res) => {
         console.log("Full routes")
         console.log(req.session.user.username)
         let full_fname = xss(req.params.id)
+        let un = xss(req.session.user.username)
+        let bool1 = await data.check_bought(un, full_fname)
+        if(bool1===false){
+              return res.redirect('/customer_index/individual_book_page/'+full_fname)
+        }
         console.log(full_fname)
         return res.render('users/customer_read_full', {incomingTitle: full_fname})
 
@@ -115,6 +126,9 @@ router.get('/', async (req, res) => {
     try {
       let un = xss(req.session.user.username)
         let bool1 = await data.library(un)
+        if(bool1.length===0){
+          return res.render('users/customer_library', {nobooks: true})
+        }
         return res.render('users/customer_library', {purchasedBooks: bool1})
      
     } catch (error) {

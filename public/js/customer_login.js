@@ -22,6 +22,7 @@ if (myForm) {
         event.preventDefault();
         }
         else if(password.value.trim().length<6){
+          username.value=username.value;
             password.value='';
             errorDiv.hidden = false;
 
@@ -41,7 +42,7 @@ if (myForm) {
             return true;
         }
 
-        myForm.reset();
+        // myForm.reset();
       } else {
         username.value = '';
         password.value='';

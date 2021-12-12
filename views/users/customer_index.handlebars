@@ -7,7 +7,11 @@
             <li> <a href="/customer_index/customer_library">My books</a> </li> 
             <li> <a href="/customer_index/customer_update_personal_details"> Update Personal Details</a></li>
             <li>  <a href="/customer_index/customer_search">Search for book,author or category</a></li>
+            <li>  <a href="/customer_index/search_by_category">Search for books by category</a></li>
         </ul>
+        </nav>
+        </header>
+        {{#if books}}
     <h2>Recently Added !!!</h2>
     {{#each listofrecent}}
     <li> <a href="/customer_index/individual_book_page/{{this.filename}}">{{this.bookname}} </a>  </li>
@@ -18,6 +22,10 @@
     {{#each listofbooks}}
     <li> <a href="/customer_index/individual_book_page/{{this.filename}}">{{this.bookname}} </a>  </li>
     {{/each}}
-    </nav>
+    {{/if}}
+    
+    {{#if nobooks}}
+    <h3>No books to display</h3>
+    {{/if}}
 
-</header>
+
