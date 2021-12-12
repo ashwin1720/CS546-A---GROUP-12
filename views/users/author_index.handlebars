@@ -1,34 +1,37 @@
 <main>
-<p id="aip"> This is Author index page</p>
-<p>Hi {{username}}</p>
-<header class="aiheader">
-<a href="/author_index"></a>
-    <nav class="ainav"> 
-       
-        <div class=" aihrefdiv">
-
-       
+    <div class="upperIndex">
+        <h1 class="titleIndex" id="aip"> This is Author index page</h1>
+        <h3>Hi {{username}}</h3>
+    </div>
+    <header class="aiheader">
         <a href="/author_index"></a>
-        <ul>
-           <li>  <a href="/author_index">Home</a> </li> 
-           <li> <a href="/author_index/author_upload">Add new book</a></li>
-            <li> <a href="/author_index/author_update_personal_details"> Update Personal Details</a></li>
-             <li><a href="/author_logout">Logout</a></li>
-        </ul>
-         </div>  
-    </nav>
+        <div class="wholeIndex">
+            <div class="boxIndex">
+                <nav class="ainav"> 
+        
+                    <div class=" aihrefdiv">
 
-</header>
+            
+                        <a href="/author_index"></a>
+                        <ul class="wholeListIndex">
+                        <li>  <a class="listIndex" href="/author_index">Home</a> </li> 
+                        <li> <a class="listIndex" href="/author_index/author_upload">Add new book</a></li>
+                            <li> <a class="listIndex" href="/author_index/author_update_personal_details"> Update Personal Details</a></li>
+                            <li><a class="listIndex" href="/author_logout">Logout</a></li>
+                        </ul>
+                    </div>      
+                </nav>
 
-<div class="aibooklist">
+                <div class="aibooklist">
 
-{{#each listofbooks}}
-    <li> <a href="/author_index/author_individual/{{this.filename}}">{{this.bookname}} </a>  </li>
-{{/each}}
-{{#if nobooks}}
-<p>Please add any books.</p>
-{{/if}}
-
-
-</div>
+                {{#each listofbooks}}
+                    <li class="addedBooks"> <a href="/author_index/author_individual/{{this.filename}}">{{this.bookname}} </a>  </li>
+                {{/each}}
+                {{#if nobooks}}
+                <p>Please add any books.</p>
+                {{/if}}
+                </div>
+            </div>
+        </div>
+    </header>
 </main>
