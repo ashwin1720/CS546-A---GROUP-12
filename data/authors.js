@@ -5,7 +5,7 @@ const books = mongoCollections.books;
 const recents = mongoCollections.recents;
 let { ObjectId } = require('mongodb');
 const bcrypt = require('bcrypt');
-const { Console } = require('console');
+//const { Console } = require('console');
 const saltRounds = 16;
 
 async function createUser(username,authorName, password){

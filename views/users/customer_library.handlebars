@@ -1,4 +1,4 @@
-<h1>Welcome To Your Library</h1>
+{{!-- <h1>Welcome To Your Library</h1>
 
 
 {{#if nobooks}}
@@ -6,4 +6,31 @@
 {{/if}}
 {{#each purchasedBooks}}
     <li> <a href="/customer_index/individual_book_page/{{this.filename}}">{{this.bookname}} </a>  </li>
-{{/each}}
+{{/each}} --}}
+
+
+<main> 
+
+<header class="aiheader">   
+        <a href="/customer_index">Home</a>
+            <nav class="ainav"> 
+                <div class=" aihrefdiv">
+                        <a class="block" href="/customer_index/customer_library">My books</a>
+                        <a class="block" href="/customer_index/customer_update_personal_details"> Update Personal Details</a>
+                        <a class="block" href="/customer_index/customer_search">Search for book,author or category</a>
+                        <a class="block" href="/customer_index/search_by_category">Search for a book by category name.</a>
+                        <a class="block" href="/author_logout">Logout</a>
+                </div>
+            </nav> 
+</header>
+<div class="wholeIndex">
+    <div class="boxIndex">
+        <h1>Welcome To Your Library</h1>
+
+        {{#each purchasedBooks}}
+            <a class="listIndex" href="/customer_index/individual_book_page/{{this.filename}}"> {{this.bookname}} </a> <br> 
+            <a class="listIndex" href="/customer_index/review/{{this.bookId}}"> Review this book </a> 
+        {{/each}}
+    </div>
+</div>
+</main>

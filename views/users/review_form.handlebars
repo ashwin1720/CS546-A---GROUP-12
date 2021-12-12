@@ -1,0 +1,39 @@
+<main>
+
+<header class="aiheader">   
+        <a href="/author_index"></a>
+            <nav class="ainav"> 
+                <div class=" aihrefdiv">
+                        <a class="block" href="/customer_index/customer_library">My books</a>
+                        <a class="block" href="/customer_index/customer_update_personal_details"> Update Personal Details</a>
+                        <a class="block" href="/customer_index/customer_search">Search for book,author or category</a>
+                        <a class="block" href="/author_logout">Logout</a>
+                </div>
+            </nav>
+</header>
+
+
+
+
+
+
+<div class="wholeIndex">
+    <div class="boxIndex">
+        <h1> This Is Review Page</h1>
+        <form action="/customer_index/review/{{book.filename}}" method="post">
+            <label>Review Text</label>
+            <input type="text" name="reviewText"><br><br>
+            <label>Rating</label>
+            <input type="number" name="rating" min="0" max="5"><br><br>
+            <input id="addreview" type="submit">
+        </form> 
+    </div>
+</div>
+
+</main>
+
+<script>
+    document.getElementById('addreview').onclick = (event) => {
+        alert("Review added successfully!")
+    }
+</script>

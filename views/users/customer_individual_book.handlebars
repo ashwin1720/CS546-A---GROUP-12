@@ -1,8 +1,8 @@
-<h1>Individual</h1>
+{{!-- <h1>Individual</h1>
 
 <header>
     <nav>   
-        <a href="/author_index"></a>
+        <a href="/customer_index">Home</a>
         <ul>
            <li>  <a href="/customer_index/customer_library">My books</a> </li> 
             <li> <a href="/customer_index/customer_update_personal_details"> Update Personal Details</a></li>
@@ -20,4 +20,57 @@
 
 {{#if bought}}
 <p><a href="/customer_index/individual_book_page/read_full/{{this.filename}}">Read Full Book Here</a></p>
-{{/if}}
+{{/if}} --}}
+<main>
+    <div class="upperIndex">
+        <h1 class="titleIndex" id="aip"> This is Customer individual page</h1>
+        <h2>Hi {{username}}</h2>
+    </div>
+
+<header class="aiheader">   
+        <a href="/customer_index">Home</a>
+            <nav class="ainav"> 
+                <div class=" aihrefdiv">
+                        <a class="block" href="/customer_index/customer_library">My books</a>
+                        <a class="block" href="/customer_index/customer_update_personal_details"> Update Personal Details</a>
+                        <a class="block" href="/customer_index/customer_search">Search for book by name or author</a>
+                        <a class="block" href="/customer_index/search_by_category">Search for a book by category name.</a>
+                        <a class="block" href="/author_logout">Logout</a>
+                </div>
+            </nav>
+</header>
+        <div class="wholeIndex">
+            <div class="boxIndex">
+                <div class="aibooklist">
+                    {{#if notbought}}
+                    <p><a href="/customer_index/individual_book_page/read_sample/{{this.filename}}">Read Sample Here</a></p>
+                    <p><a id = "buybook" href="/customer_index/individual_book_page/buy/{{this.filename}}">Buy This Now For ${{price}}</a></p>
+                    {{#if noreviews}}
+                    <p>No reviews yet be the first to review after buying the book.</p>
+                    {{/if}}
+                    {{/if}}
+                    {{#if bought}}
+                    <p><a href="/customer_index/individual_book_page/read_full/{{this.filename}}">Read Full Book Here</a></p>
+                    <p><a href="/customer_index/review/{{this.filename}}">Write your review</a></p>
+                    {{#if noreviews}}
+                    <p><a href="/customer_index/review/{{this.filename}}">No reviews yet be the first to review</a></p>
+                    {{/if}}
+                    {{/if}}
+                     <h3>Rating: {{avg}}</h3>
+                    <h3>Reviews</h3>
+                    {{#each reviews}}
+                    <ul>
+                    <li>{{this.reviewerName}} says "{{this.reviewText}}" and gave this book a rating of {{this.rating}}</li>
+                    </ul>
+                    {{/each}}
+                    
+                </div>
+            </div>
+        </div>
+</main>
+<script>
+    document.getElementById('buybook').onclick = (event) => {
+        alert("Thanks for buying it enjoy reading!")
+    }
+    
+</script>

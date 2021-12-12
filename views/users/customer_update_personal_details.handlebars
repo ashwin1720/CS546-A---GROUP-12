@@ -1,0 +1,45 @@
+
+<main>
+
+
+<p>This is Customer update personal details page</p>
+
+<header>
+    <nav>   
+       
+        <ul>
+           <li>  <a href="/customer_index">Home Page</a> </li> 
+             <a href="/author_logout">Logout</a>
+        </ul>
+    </nav>
+
+</header>
+<h4>This Is Current Name</h4>
+<p>{{customerDetails.customerName}}</p>
+
+<br>
+<br>
+<br>
+
+<h3>
+    Update Details Here
+</h3>
+<form action="/customer_index/customer_update_personal_details" method="POST" class="customer_update_personal_details">
+
+         <div class="customer_update_personal_details">
+
+         <label for="customerName">Enter New name </label>
+         <input type="text" name="customerName" placeholder="{{customerDetails.customerName}}" id="customer_name">
+     
+            <label for="password">Password</label> 
+            <input type="password" name="password" placeholder="Should be grater than 4 characters" id="customer_password">
+         </div>
+
+         <button type="submit">Change</button>
+
+         {{#if hasErrors}}
+               <p class="errors"> {{errors}}.</p>
+         {{/if}}
+        
+         </form>
+</main>

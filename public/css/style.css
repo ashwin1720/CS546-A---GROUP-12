@@ -4,14 +4,20 @@
 }
 
 .top-bar {
-  background: #333;
+  background: #767676;
   color: #fff;
   padding: 1rem;
 }
 
-.btn {
-  background: coral;
-  color: #fff;
+#prev-page {
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0.7rem 2rem;
+}
+#next-page {
+  color: white;
   border: none;
   outline: none;
   cursor: pointer;

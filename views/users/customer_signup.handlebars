@@ -1,4 +1,4 @@
-<main>
+{{!-- <main>
 
 <a href="/">Go Back To Main Menu</a>
   <h1>Customer Signup Here</h1>
@@ -42,5 +42,57 @@
 {{#if isEmptyPw}}
 <p class="error">Enter password.</p>
 {{/if}}
+<script src="/public/js/customer_signup.js"></script>
+</main> --}}
+
+
+<main>
+  <div class="signupContainer">
+    <div class="columnAuthorSignup">
+    <a href="/">Go Back To Main Menu</a>
+      <h1>Customer Signup Here</h1>
+      <form action="/customer_signup" method="POST" class="customer-signup-form" id="customer-signup-form">
+      <label for="Name">
+          Name
+          <input type="text" name="custname" id="cust" placeholder="Enter Your Name" class="full-width-input" />
+        </label>
+        <label for="username">
+          Username
+          <input type="text" name="username" id="username" placeholder="Enter Your Username" class="full-width-input" />
+        </label>
+        <label for="password">
+          Password
+          <input type="password" name="password" id="password" placeholder="Enter The Passsword" class="full-width-input" />
+        </label>
+        <br><br><br><button class="btn"type="submit">Submit</button>
+        <br><br><br><button class="btn" type="reset">Clear</button>
+      </form>
+<footer>
+  <nav>
+        <ul>
+            <li><a href="/customer_login"> Already have an account? Click here to log-in </a></li>
+        </ul>
+
+</nav>
+<div class="error" id="error" hidden></div>
+</footer>
+{{#if notString}}
+<p class="error">Either ussername/password not in correct format. Username should be atleast 4 characters and password should be atleast 6 characters both without any spaces.</p>
+{{/if}}
+{{#if unError}}
+<p class="error">Username should be atleast 4 characters without any spaces.</p>
+{{/if}}
+{{#if pwError}}
+<p class="error">Password should be atleast 6 characters without any spaces.</p>
+{{/if}}
+{{#if isEmptyUn}}
+<p class="error">Enter username.</p>
+{{/if}}
+{{#if isEmptyPw}}
+<p class="error">Enter password.</p>
+{{/if}}
+</div>
+
+</div>
 <script src="/public/js/customer_signup.js"></script>
 </main>

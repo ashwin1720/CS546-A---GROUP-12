@@ -5,7 +5,7 @@ const books = mongoCollections.books;
 const recents = mongoCollections.recents;
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
-
+let { ObjectId } = require('mongodb');
 async function createUser(custname, username, password){
     let trueObj = {userInserted: true}
     custname=custname.trim();
@@ -80,6 +80,8 @@ async function checkUser(username,password){
               {projection:{username:1 , password:1}}
         );
         let compareToMatch = false;
+        console.log(password)
+        console.log(userFind.password)
 
         compareToMatch = await bcrypt.compare(password, userFind.password);
 
@@ -235,6 +237,7 @@ async function library(username){
                 let purObj = {}
                     purObj["filename"]=booksList[i].filename
                     purObj["bookname"]=booksList[i].bookname
+                    purObj['bookId'] = booksList[i]._id.toString()
                     purArray.push(purObj)
 
             }
@@ -269,15 +272,140 @@ async function searchCategory(searchedTerm){
     return booksList; 
 
 }
+
+
+async function getCustomerDetails(username){
+    console.log(username)
+    username=username.toLowerCase()
+    const userCollection = await customers();
+   
+    console.log("inside getCustomerDetail")
+    const userFind = await userCollection .findOne(
+        { username : username },
+          {projection:{username:1 , password:1,authorName:1}}
+    );
+    console.log(userFind)
+    return userFind
+}
+
+async function updateCustomerDetails(oldusername,custName,password){
+    const userCollection = await customers()
+
+
+    function hasWhiteSpace(s) {
+        return /\s/g.test(s);
+       }
+
+    if(custName){
+        if(hasWhiteSpace(custName)){
+            throw 'name should not contain spaces'
+           } 
+           let oldusernameLower = oldusername.toLowerCase();
+    
+    let newCustDetails = {
+       name:custName,
+}
+    const updatedCustInfo = await userCollection.updateOne(
+        { username: oldusernameLower },
+        { $set: newCustDetails}
+      );
+      if (updatedCustInfo.modifiedCount === 0) {
+        throw 'could not update customer details successfully';
+      }
+
+    }
+    if(password){
+        if(hasWhiteSpace(password)){
+            throw 'password should not contain spaces'
+           } 
+           if(password.length<6){
+            throw 'password should be atleast 6 characters'
+              }
+              const hashpassword = await bcrypt.hash(password, saltRounds);
+              let oldusernameLower = oldusername.toLowerCase();
+    
+    let newCustDetails = {
+       password:hashpassword
+}
+    const updatedCustInfo = await userCollection.updateOne(
+        { username: oldusernameLower },
+        { $set: newCustDetails}
+      );
+      if (updatedCustInfo.modifiedCount === 0) {
+        throw 'could not update customer details successfully';
+      }
+
+    }
+    
+      
+      
+      let ret ={}
+      ret.authenticated = true
+      return ret
+ }
+
+
+//  async function getBookById(id) {
+//     const bookColl = await books();
+//     console.log("Inside getbookbyid")
+//     console.log(id)
+//     const book = await bookColl.findOne({ filename: new Object(id) });
+//     console.log(book);
+//     book._id = book._id.toString();
+//     return book;
+// }
+
+async function getBookByFilename(fname)
+ {
+    const bookColl = await books();
+    const book = await bookColl.findOne({ filename: fname });
+    console.log(book);
+    //book._id = book._id.toString();
+    return book;
+ }
+
+const registerReview = async (fname, reviewName, reviewText, rating) => {
+    const bookColl = await books();
+    console.log("Inside regier review")
+    console.log(fname)
+    const registerReview = await bookColl.updateOne({ filename: fname }, {
+        $addToSet: {
+            reviews: {
+                _id: new ObjectId(),
+                reviewerName: reviewName,
+                reviewText,
+                rating
+            }
+        }
+    });
+    // calculate average
+    const allReviews = await bookColl.findOne({ filename: fname });
+    let sum = 0;
+    let average = 0;
+    if (allReviews.reviews) {
+    for (const review of allReviews.reviews) {
+        console.log(parseInt(review.rating))
+        sum = sum + parseInt(review.rating);
+    }
+    average = sum/allReviews.reviews.length;
+    }
+    const addRating = await bookColl.updateOne({ filename: fname}, { $set: { rating: average }})
+    return true;
+}
+
 module.exports = {
     index_content,
     createUser,
-
     checkUser,
     check_bought,
     buy_book,
     recently_added,
     library,
     searchBook,
-    searchCategory
+    searchCategory,
+    getCustomerDetails,
+    updateCustomerDetails,
+    getBookByFilename,
+    registerReview,
+
 }
