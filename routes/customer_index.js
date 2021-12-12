@@ -56,26 +56,32 @@ router.get('/', async (req, res) => {
         reviews1 = bookDetails.reviews;
         let avgrat = bookDetails.rating;
         avgrat=avgrat.toFixed(2)
-        console.log(avgrat)
+        let bookname = bookDetails.bookname;
+        let authorname = bookDetails.authorName;
+        bookname = capitalizeFirstLetter(bookname)
+        authorname = capitalizeFirstLetter(authorname)
+        console.log(bookname)
+        console.log(authorname)
+        //console.log(avgrat)
         //console.log(reviews1)
         if(reviews1.length===0){
 
 
           if(bool===false){
 
-            return res.render('users/customer_individual_book', {notbought: true, filename:selected_fname, username:un, price: price, noreviews:true})
+            return res.render('users/customer_individual_book', {notbought: true, filename:selected_fname, username:un, price: price, noreviews:true, bookname: bookname, author: authorname})
         }
         else{
-            return res.render('users/customer_individual_book', {bought: true, filename:selected_fname, username:un, noreviews:true})
+            return res.render('users/customer_individual_book', {bought: true, filename:selected_fname, username:un, noreviews:true, bookname: bookname, author: authorname})
         }
           
         }
         if(bool===false){
 
-            return res.render('users/customer_individual_book', {notbought: true, filename:selected_fname, username:un, price: price, reviews:reviews1, avg:avgrat})
+            return res.render('users/customer_individual_book', {notbought: true, filename:selected_fname, username:un, price: price, reviews:reviews1, avg:avgrat, bookname: bookname, author: authorname})
         }
         else{
-            return res.render('users/customer_individual_book', {bought: true, filename:selected_fname, username:un, reviews:reviews1, avg:avgrat})
+            return res.render('users/customer_individual_book', {bought: true, filename:selected_fname, username:un, reviews:reviews1, avg:avgrat, bookname: bookname, author: authorname})
         }
        
        //Should call check_bought and if not bought enable only read samlpe button.

@@ -13,10 +13,12 @@ $(function(){
     if(!searchedTerm){
         var $a = $("<p/>").addClass('myErrors').text('Please provide search term')
         $("<p/>").append($a).appendTo('#myErrors')
+        return
     }
     if(searchedTerm == " "){
         var $a = $("<p/>").addClass('myErrors').text('Cannot be spaces')
         $("<p/>").append($a).appendTo('#myErrors')
+        return
     }
     
     $.ajax({
@@ -24,19 +26,20 @@ $(function(){
         url:'/customer_index/search_by_category/'+searchedTerm,
         success:function(res){
             if(res[0].filename === undefined){
-                $('#errors').append(`<p class="new-error"> ${(`No books with that name,Search again`)} </p>`); 
+                var $a = $("<p/>").addClass('myErrors').text('Cannot find that category')
+                $("<p/>").append($a).appendTo('#myErrors') 
+                return
+               
             }else{
                 $('#bookList').empty();
                
     
                 for(let i = 0;i<res.length;i++){
-                    $("#bookList").append('<li><a href="/customer_index/individual_book_page/'+res[i].filename+'" onclick="getById('
-                     + res[i].filename+')">'
+                    $("#bookList").append('<li><a href="/customer_index/individual_book_page/'+res[i].filename+'">'
                      + res[i].bookname
                     +' </a></li>');
     
-                         
-                }
+              }
                 $('#bookList').show();
                 $("#show").show();
                
@@ -52,25 +55,25 @@ $(function(){
     
     });
     
-    function getById(id) {
-    $("#show").hide();
-    $('#myErrors').empty()
-    $('#forimg').empty()
-    $("#showList").empty();
-    $.ajax({
-      method: "GET",
-      url: "",
-      success: function (res) {
-        if (!res) {
-            var $a = $("<p/>").addClass('myErrors').text('Some error occurred')
-                    $("<p/>").append($a).appendTo('#myErrors')
-        }else{
+    // function getById(id) {
+    // $("#show").hide();
+    // $('#myErrors').empty()
+    // $('#forimg').empty()
+    // $("#showList").empty();
+    // $.ajax({
+    //   method: "GET",
+    //   url: "",
+    //   success: function (res) {
+    //     if (!res) {
+    //         var $a = $("<p/>").addClass('myErrors').text('Some error occurred')
+    //                 $("<p/>").append($a).appendTo('#myErrors')
+    //     }else{
          
-    return
-        } 
-      },
-    });
-    }
+    // return
+    //     } 
+    //   },
+    // });
+    // }
     
     
     

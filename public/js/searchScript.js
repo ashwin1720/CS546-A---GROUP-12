@@ -4,9 +4,11 @@ $(function(){
   $('#searchForm').submit((event) =>{
   
   event.preventDefault();
+  $('#errors').hide();
   $('#forimg').empty()
   $('#error1').hide();
-  $('#myErrors').empty()
+  $('#myErrors').empty();
+  $('#bookList').empty();
   
   let searchedTerm = $("#search_term").val().trim();
   if(!searchedTerm){
@@ -25,13 +27,13 @@ $(function(){
       url:'/customer_index/customer_search/'+searchedTerm,
       success:function(res){
           if(res[0].filename === undefined){
-              $('#errors').append(`<p class="new-error"> ${(`No books with that name,Search again`)} </p>`); 
+            var $a = $("<p/>").addClass('myErrors').text('No books with that name')
+            $("<p/>").append($a).appendTo('#myErrors') 
               return 
           }else{
               $('#bookList').empty();
               for(let i = 0;i<res.length;i++){
-                  $("#bookList").append('<li><a href="/customer_index/individual_book_page/'+res[i].filename+' onclick="getById('
-                   + res[i].filename+')">'
+                  $("#bookList").append('<li><a href="/customer_index/individual_book_page/'+res[i].filename+'">'
                    + res[i].bookname
                   +' </a></li>');
   
@@ -51,23 +53,23 @@ $(function(){
   
   });
   
-  // function getById(id) {
-  // $("#show").hide();
-  // $('#myErrors').empty()
-  // $('#forimg').empty()
-  // $("#showList").empty();
-  // $.ajax({
-  //   method: "GET",
-  //   url: "",
-  //   success: function (res) {
-  //     if (!res) {
-  //         var $a = $("<p/>").addClass('myErrors').text('Some error occurred')
-  //                 $("<p/>").append($a).appendTo('#myErrors')
-  //     }else{
-  //     } 
-  //   },
-  // });
-  // }
+//   function getById(id) {
+//   $("#show").hide();
+//   $('#myErrors').empty()
+//   $('#forimg').empty()
+//   $("#showList").empty();
+//   $.ajax({
+//     method: "GET",
+//     url: "",
+//     success: function (res) {
+//       if (!res) {
+//           var $a = $("<p/>").addClass('myErrors').text('Some error occurred')
+//                   $("<p/>").append($a).appendTo('#myErrors')
+//       }else{
+//       } 
+//     },
+//   });
+//   }
   
   
   

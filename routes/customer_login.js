@@ -98,6 +98,7 @@ router.get('/', async (req, res) => {
         
      
     } catch (error) {
+      console.log("Helloooooooo")
       console.log(error)
       return res.render('users/customer_login',{errors:error,hasErrors:true})
     }

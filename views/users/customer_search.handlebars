@@ -1,4 +1,4 @@
-<main>
+{{!-- <main>
 
 
 <header>
@@ -41,6 +41,54 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="/public/js/searchScript.js"></script>
 {{#if hasErrors}}
+<p class="error">{{error}}</p>
+{{/if}}
+</main> --}}
+
+
+<main>
+    <header class="aiheader">
+      <nav class="ainav"> 
+          <div class=" aihrefdiv">
+            <a href="/customer_index">Home</a>
+            <ul>
+              <a class="block" href="/customer_index/customer_library"> My books</a>
+              <a class="block" href="/customer_index/customer_update_personal_details"> Update Personal Details</a>
+              <a class="block" href="/customer_index/customer_search"> Search for book,author</a> 
+              <a class="block" href="/author_logout">Logout</a>
+            </ul>
+          </div> 
+        </nav>  
+    </header> 
+
+<div class="wholeIndex">
+  <div class="boxIndex">
+    <h1>Search for author, bookname</h1>
+      <form action="" id="searchForm">
+          <input type="text" name="search_term" placeholder="Search books,author,category" id="search_term"><br>
+          <label for="search_term">Search Books</label>
+          <button type="submit" value="Submit" id="searchButton">Search</button>
+      </form>
+
+    <div id="myErrors"></div>
+
+    <p id="error1" hidden>Search field cannot be empty</p>
+    <div class="errors">
+        <ol id="attempts"></ol>
+    </div>
+
+    <div id="book"></div>
+    <ul id="bookList"></ul>
+
+    {{#each listofbooks}}
+      <a class="listIndex" href="/customer_index/individual_book_page/{{this.filename}}"><br>{{this.bookname}} </a>
+    {{/each}}
+  </div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="/public/js/searchScript.js"></script>
+  {{#if hasErrors}}
 <p class="error">{{error}}</p>
 {{/if}}
 </main>

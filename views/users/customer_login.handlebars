@@ -53,12 +53,13 @@
             </ul>
           </nav>
           <div class="error" id="error" hidden></div>
+          {{#if hasErrors}}
+<p class="error">{{errors}}</p>
+{{/if}}
         </footer>
       </form>
     </div>
   </div>
   <script src="/public/js/customer_login.js"></script>
-{{#if hasErrors}}
-<p class="error">{{errors}}</p>
-{{/if}}
+
 </main>

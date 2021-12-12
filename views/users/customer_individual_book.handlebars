@@ -42,6 +42,7 @@
         <div class="wholeIndex">
             <div class="boxIndex">
                 <div class="aibooklist">
+                    <h3>{{this.bookname}} Written By {{this.author}}</h3>
                     {{#if notbought}}
                     <p><a href="/customer_index/individual_book_page/read_sample/{{this.filename}}">Read Sample Here</a></p>
                     <p><a id = "buybook" href="/customer_index/individual_book_page/buy/{{this.filename}}">Buy This Now For ${{price}}</a></p>
