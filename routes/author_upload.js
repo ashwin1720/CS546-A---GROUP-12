@@ -9,9 +9,9 @@ const { ObjectID } = require('bson');
 
 router.get('/', async (req, res) => {
     try {
-        if(!req.session.user && req.session.user.usertype ==="author"){
+        if(!xss(req.session.user) && xss(req.session.user.usertype) ==="author"){
             return res.render('users/author_login',{titleName:'Author Login'})
-          }if(req.session.user && req.session.user.usertype ==="author"){
+          }if(xss(req.session.user) && xss(req.session.user.usertype) ==="author"){
             return res.render('users/author_upload', {titleName: 'Author Upload'})
           }
      
@@ -22,24 +22,22 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
 
-        console.log(req.body)
+        //console.log(req.body)
         let details=req.body;
-        console.log(req.body);
-        let bookname = details["bookname"]
-        let price = details["price"]
-        let description = details["description"]
-        let category = details["category"]
-        let authorname=req.session.user.authorName;
-        let authorusername = req.session.user.username
+        //console.log(req.body);
+        let bookname = xss(req.body.bookname)
+        let price = xss(req.body.price)
+        let description = xss(req.body.description)
+        let category = xss(req.body.category)
+        let authorname=xss(req.session.user.authorName);
+        let authorusername = xss(req.session.user.username)
 
         if(req.files){
             var file = req.files.file;
-            var filename = file.name;
-            console.log(filename);
-            let newfilename = filename.slice(0, -4)
-            console.log(newfilename)
             var objectId = new ObjectID();
+
             newfilename = objectId+".pdf"
+            newfilename=xss(newfilename)
             file.mv('./public/uploads/'+newfilename,async function(err){
                 if(err){
                     res.render('users/error')
@@ -47,7 +45,7 @@ router.post('/', async (req, res) => {
                 else{
                     let bool = await data.createBook(bookname, authorname, authorusername, price, description, category, newfilename)
 
-                    if (req.session.user && req.session.user.usertype === "author") {
+                    if (xss(req.session.user) && xss(req.session.user.usertype) === "author") {
                       return res.redirect('/author_index')
                     }
                 }

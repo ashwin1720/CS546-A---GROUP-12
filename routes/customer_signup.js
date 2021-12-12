@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const data = require('../data/customers');
-
+const xss = require('xss');
 async function check(str, res){
   if(str.length==0){
     return false;
@@ -27,9 +27,9 @@ async function check(str, res){
 router.get('/', async (req, res) => {
 
   try {
-    if(!req.session.user){
+    if(!xss(req.session.user)){
       return res.render('users/customer_signup',{titleName:'Customer Signup'})
-    }if(req.session.user && req.session.user.usertype ==="customer"){
+    }if(xss(req.session.user) && xss(req.session.user.usertype) ==="customer"){
       return res.render('users/customer_index',{titleName:'Customer Main Page'})
     }
    } catch (error) {
@@ -41,9 +41,9 @@ router.post('/', async (req, res) => {
     try {
       const user_data=req.body;
       //console.log(user_data);
-      let custname = user_data['custname']
-      let un = user_data['username']
-      let pw = user_data['password']
+      let custname = xss(req.body.custname)
+      let un = xss(req.body.username)
+      let pw = xss(req.body.password)
 
         if(typeof(un)!='string' || typeof(pw)!='string' || typeof(custname)!='string')
         {

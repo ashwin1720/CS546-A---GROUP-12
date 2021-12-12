@@ -2,42 +2,40 @@ const express = require('express');
 
 const router = express.Router();
 const data = require('../data/customers');
+const xss = require('xss');
 //const usersData = data.users;
 
 router.get('/', async (req, res) => {
     try {
-        if(req.session.user && req.session.user.usertype == "customer"){
-            // console.log("Inside routes")
-            // console.log(req.session.user.username)
-            // console.log(req.session.user.usertype)
+        if(xss(req.session.user) && xss(req.session.user.usertype) == "customer"){
+          console.log("Coming inisde index")
+          let un = xss(req.session.user.username)
+          let utype = xss(req.session.user.usertype)
             let list = await data.index_content()
             let recentList = await data.recently_added();
-            console.log(recentList)
-            //console.log(list)
-            return res.render('users/customer_index',{listofrecent: recentList, listofbooks: list ,username:req.session.user.username,
-              usertype:req.session.user.usertype,
+            return res.render('users/customer_index',{listofrecent: recentList, listofbooks: list ,username:un,
+              usertype:utype,
               titleName:'Customer Main Page'})
           }
           else{
             return res.redirect('/')
           }
-       //return res.render('users/customer_index')
      
     } catch (error) {
+      console.log(error)
       res.status(500).json({error:error})
     }
   });
 
   router.get('/individual_book_page/:id', async (req, res) => {
     try {
-        //console.log("Individual page routes")
-        //console.log(req.session.user.username)
-        let selected_fname = req.params.id
+        let selected_fname = xss(req.params.id)
+        let un = xss(req.session.user.username)
         //console.log(selected_fname)
         let bool=false;
         
-        bool = await data.check_bought(req.session.user.username, selected_fname)
-        console.log("Bool = ", bool)
+        bool = await data.check_bought(un, selected_fname)
+        //console.log("Bool = ", bool)
         //bool=true
         
         if(bool===false){
@@ -59,7 +57,7 @@ router.get('/', async (req, res) => {
     try {
         console.log("Sample routes")
         console.log(req.session.user.username)
-        let sample_fname = req.params.id
+        let sample_fname = xss(req.params.id)
         console.log(sample_fname)
         return res.render('users/customer_read_sample', {incomingTitle: sample_fname})
 
@@ -78,7 +76,7 @@ router.get('/', async (req, res) => {
     try {
         console.log("Full routes")
         console.log(req.session.user.username)
-        let full_fname = req.params.id
+        let full_fname = xss(req.params.id)
         console.log(full_fname)
         return res.render('users/customer_read_full', {incomingTitle: full_fname})
 
@@ -98,14 +96,13 @@ router.get('/', async (req, res) => {
         //
         console.log("Buy routes")
         console.log(req.session.user.username)
-        let buy_fname = req.params.id
+        let buy_fname = xss(req.params.id)
         console.log(buy_fname)
-        let bool1 = await data.buy_book(req.session.user.username, buy_fname)
+        let un = xss(req.session.user.username)
+        let bool1 = await data.buy_book(un, buy_fname)
         console.log(bool1)
         //return res.render('users/customer_read_full', {incomingTitle: full_fname})
-        res.redirect('/customer_index')
-
-       
+        res.redirect('/customer_index');
        //Should call check_bought and if not bought enable only read samlpe button.
      
     } catch (error) {
@@ -116,7 +113,8 @@ router.get('/', async (req, res) => {
   });
   router.get('/customer_library', async (req, res) => {
     try {
-        let bool1 = await data.library(req.session.user.username)
+      let un = xss(req.session.user.username)
+        let bool1 = await data.library(un)
         return res.render('users/customer_library', {purchasedBooks: bool1})
      
     } catch (error) {

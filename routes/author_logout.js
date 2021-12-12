@@ -1,10 +1,12 @@
 const express = require('express');
+
 const router = express.Router();
+const xss = require('xss');
 
 
 router.get('/', async (req, res) => {
     try {
-      if(req.session.user && req.session.user.usertype === "author"){
+      if(xss(req.session.user) && xss(req.session.user.usertype) === "author"){
           req.session.destroy();
         return res.redirect('/')
       }

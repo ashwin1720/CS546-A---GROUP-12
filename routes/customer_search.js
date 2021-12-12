@@ -2,14 +2,18 @@ const express = require('express');
 
 const router = express.Router();
 const data = require('../data/customers');
+const xss = require('xss');
 
 router.get('/', async (req, res) => {
     try {
-        if(req.session.user && req.session.user.usertype == "customer"){
+        if(xss(req.session.user) && xss(req.session.user.usertype) == "customer"){
             let list = await data.index_content()
-            console.log(list)
-            return res.render('users/customer_search',{listofbooks: list ,username:req.session.user.username,
-              usertype:req.session.user.usertype,
+            list = xss(list)
+            un=xss(req.session.user.username)
+            utype=xss(reqsession.user.usertype)
+            //console.log(list)
+            return res.render('users/customer_search',{listofbooks: list ,username:un,
+              usertype:utype,
               titleName:'Customer Main Page'})
           }
           else{
@@ -22,8 +26,9 @@ router.get('/', async (req, res) => {
 
   router.get('/:searchTerm', async (req, res) => {
     try {
-        if(req.session.user && req.session.user.usertype == "customer"){
-            let list = await data.searchBook(req.params.searchTerm)
+        if(xss(req.session.user) && xss(req.session.user.usertype) == "customer"){
+            let list = await data.searchBook(xss(req.params.searchTerm))
+            list = xss(list)
             console.log(list)
             return res.json(list)
           }

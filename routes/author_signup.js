@@ -1,4 +1,5 @@
 const express = require('express');
+
 const xss = require('xss');
 const router = express.Router();
 const data = require('../data/authors');
@@ -27,9 +28,9 @@ async function check(str, res){
 
   router.get('/', async (req, res) => {
     try {
-      if(!req.session.user){
+      if(!xss(req.session.user)){
         return res.render('users/author_signup',{titleName:'Author Signup'})
-      }if(req.session.user && req.session.user.usertype ==="author"){
+      }if(xss(req.session.user) && xss(req.session.user.usertype) ==="author"){
         return res.render('users/author_index',{titleName:'Author Main Page'})
       }
      } catch (error) {
@@ -41,9 +42,9 @@ async function check(str, res){
       try {
         const user_data=req.body;
         //console.log(user_data);
-        let un = user_data['username']
-        let pw = user_data['password']
-        let authorName = user_data['name']
+        let un = xss(req.body.username)
+        let pw = xss(req.body.password)
+        let authorName = xss(req.body.name)
   
           if(typeof(un)!='string' || typeof(pw)!='string'  || typeof(authorName)!='string')
           {
