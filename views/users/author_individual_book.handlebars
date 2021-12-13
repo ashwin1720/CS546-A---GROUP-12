@@ -1,57 +1,69 @@
 <main>
-<p>Book Details</p>
-<header>
-    <nav>   
-       
-        <ul>
-           <li>  <a href="/author_index">My books</a> </li> 
-           <li> <a href="author_index/author_upload">Add new book</a></li>
-            <li> <a href="/author_index/author_update_personal_details"> Update Personal Details</a></li>
-              <a href="/author_logout">Logout</a>
-        </ul>
-    </nav>
+    
+    <div class="upperIndex">
+        <h1 class="titleIndex" id="aip"> This is Author individual page</h1>
+        <h2>Hi {{username}}</h2>
+    </div>
 
+<h1>Book Details</h1>
+
+<header class="aiheader">   
+            <nav class="ainav"> 
+                <div class=" aihrefdiv">
+                        <a href="/author_index"></a>
+                        <ul class="wholeListIndex">
+                          <a class="block" href="/author_index">Home</a> 
+                          <a class="block" href="/author_index/author_upload">Add new book</a>
+                         <a class="block" href="/author_index/author_update_personal_details"> Update Personal Details</a>
+                        <a class="block" href="/author_logout">Logout</a></li>
+                        </ul>
+                </div>
+            </nav>
 </header>
+<div class="wholeIndex">
+    <div class="boxIndex">
+        <h1>
+        Book Name
+        {{this.bookDetails.bname}}
+        
+        </h1>
 
- <h1>
- Book Name
-   {{this.bookDetails.bname}}
-   
- </h1>
+        <h3>
+        Description
+        </h3>
+        <p>{{this.bookDetails.description}}</p>
 
-<h3>
-Description
-</h3>
- <p>{{this.bookDetails.description}}</p>
+        <h3>
+            Price
+            
+        </h3>
+        <p>{{this.bookDetails.price}}</p>
+        <h3>
+        Number of Purchases
+        </h3>
+        <p>
+        {{this.bookDetails.numberOfPurchase}}
+        </p>
+        <h3>
+        Rating
+        </h3>
+        <p>{{this.bookDetails.rating}}</p>
 
-<h3>
-    Price
-    
-</h3>
-<p>{{this.bookDetails.price}}</p>
-<h3>
-Number of Purchases
-</h3>
-<p>
-{{this.bookDetails.numberOfPurchase}}
-</p>
-<h3>
-Rating
-</h3>
-<p>{{this.bookDetails.rating}}</p>
+        <h3>
+            Review
+        </h3>
 
-<h3>
-    Review
-</h3>
+        <h4>
+        {{#each this.bookDetails.review}}
+        <li>{{this}}</li>
+            
+            {{/each}}
+        </h4>
 
-<h4>
-{{#each this.bookDetails.review}}
-   <li>{{this}}</li>
-    
-    {{/each}}
-</h4>
-
-
-  
+        {{#if hasErrors}}
+            <p class="errors"> {{errors}}.</p>
+        {{/if}}
+</div>
+</div>
 </main>
 

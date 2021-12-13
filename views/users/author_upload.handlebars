@@ -7,7 +7,7 @@
            <li class="uploadLi">  <a href="/author_index">My books</a> </li> 
            <li class="uploadLi"> <a href="/author_index/author_upload">Add new book</a></li>
             <li class="uploadLi"> <a href="/author_index/author_update_personal_details"> Update Personal Details</a></li>
-              <a class="uploadLi" href="/author_logout">Logout</a>
+             <li  class="uploadLi"> <a href="/author_logout">Logout</a>
         </ul>
     </nav>
 
@@ -16,10 +16,13 @@
         <div class="headingUpload">
             <h1 class="text-center display-4 my-4">Book Upload Page</h1>
         </div>
+         {{#if hasErrors}}
+               <p class="errors"> {{errors}}.</p>
+         {{/if}}
     <div class="uploadContainer">
         <form action="/author_index/author_upload" method="POST" enctype="multipart/form-data">
           <div class="custom-file mb-3">
-            <label class="labelUpload"for="bookname">
+            <label class="labelUpload" for="bookname">
             Name Of The Book<input type="text" name="bookname" id="bookname">
             </label>
             <br>
@@ -32,7 +35,7 @@
             <br>
             <br>
             <label class="labelUpload" for="description">
-            Description<textarea type="text" rows="3" cols="50" name="description" id="description"></textarea>
+            Description<textarea rows="3" cols="50" name="description" id="description"></textarea>
             </label>
             <br>
             <br>
@@ -43,9 +46,8 @@
             <br>
             <br>
             <br>
-            <label class="labelUpload" for="file" class="custom-file-label">Choose A Book</label>
+            <label class="labelUpload" for="file">Choose A Book</label>
             <input type="file" name="file" id="file" accept="application/pdf" class="custom-file-input">
-            
           </div>
           <input type="submit" value="Submit" class="buttonUploadForm">
         </form>

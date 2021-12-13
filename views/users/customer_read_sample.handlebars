@@ -1,7 +1,21 @@
-<h1>{{this.title}} Written By {{this.author}}</h1>
 
+<header class="aiheader">   
+        <h1>{{this.title}} Written By {{this.author}}</h1>
+            <nav class="ainav"> 
+                <div class=" aihrefdiv">
+                        <a class="block" href="/customer_index">Home</a>
+                        <a class="block" href="/customer_index/customer_library">My books</a>
+                        <a class="block" href="/customer_index/customer_update_personal_details"> Update Personal Details</a>
+                        <a class="block" href="/customer_index/customer_search">Search for book ,author</a>
+                        <a class="block" href="/customer_index/search_by_category">Search for books by category</a>
+                        <a class="block" href="/customer_logout">Logout</a>
+                </div>
+            </nav>
+</header>
 
-<div class="top-bar">
+<div class="wholeIndex">
+    <div class="boxIndex">
+        <div class="top-bar">
             <button class="btn" id="prev-page">
                 <i class="fas fa-arrow-circle-left">Prev-page</i>
             </button> 
@@ -12,6 +26,11 @@
                 Page <span id="page-num"></span> of <span id="page-count"></span>
             </span>
         </div>
+         {{#if hasErrors}}
+               <p class="errors"> {{errors}}.</p>
+         {{/if}}
         <canvas id="pdf-render"></canvas>
         <script src="https://mozilla.github.io/pdf.js/build/pdf.js" ></script>
         <script id="scriptid" data-name={{this.incomingTitle}} src="/public/js/read_sample.js" ></script>
+    </div>
+</div>

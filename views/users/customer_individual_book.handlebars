@@ -28,9 +28,10 @@
     </div>
 
 <header class="aiheader">   
-        <a href="/customer_index">Home</a>
+        
             <nav class="ainav"> 
                 <div class=" aihrefdiv">
+                        <a class="block" href="/customer_index">Home</a>
                         <a class="block" href="/customer_index/customer_library">My books</a>
                         <a class="block" href="/customer_index/customer_update_personal_details"> Update Personal Details</a>
                         <a class="block" href="/customer_index/customer_search">Search for book by name or author</a>
@@ -57,6 +58,9 @@
                     <p><a href="/customer_index/review/{{this.filename}}">No reviews yet be the first to review</a></p>
                     {{/if}}
                     {{/if}}
+                     {{#if hasErrors}}
+               <p class="errors"> {{errors}}.</p>
+         {{/if}}
                      <h3>Rating: {{avg}}</h3>
                     <h3>Reviews</h3>
                     {{#each reviews}}

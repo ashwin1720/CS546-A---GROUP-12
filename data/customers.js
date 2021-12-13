@@ -282,7 +282,7 @@ async function getCustomerDetails(username){
     console.log("inside getCustomerDetail")
     const userFind = await userCollection .findOne(
         { username : username },
-          {projection:{username:1 , password:1,authorName:1}}
+          {projection:{username:1 , password:1, name:1}}
     );
     console.log(userFind)
     return userFind
@@ -365,6 +365,8 @@ async function getBookByFilename(fname)
  }
 
 const registerReview = async (fname, reviewName, reviewText, rating) => {
+    if(rating!=="number")
+    throw"provide a number in rating"
     const bookColl = await books();
     console.log("Inside regier review")
     console.log(fname)

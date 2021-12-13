@@ -12,19 +12,23 @@
 <main> 
 
 <header class="aiheader">   
-        <a href="/customer_index">Home</a>
+        
             <nav class="ainav"> 
                 <div class=" aihrefdiv">
+                        <a class="block" href="/customer_index">Home</a>
                         <a class="block" href="/customer_index/customer_library">My books</a>
                         <a class="block" href="/customer_index/customer_update_personal_details"> Update Personal Details</a>
                         <a class="block" href="/customer_index/customer_search">Search for book,author or category</a>
                         <a class="block" href="/customer_index/search_by_category">Search for a book by category name.</a>
-                        <a class="block" href="/author_logout">Logout</a>
+                      <a class="block" href="/customer_logout">Logout</a> </li> 
                 </div>
             </nav> 
 </header>
 <div class="wholeIndex">
     <div class="boxIndex">
+         {{#if hasErrors}}
+               <p class="errors"> {{errors}}.</p>
+         {{/if}}
         <h1>Welcome To Your Library</h1>
 
         {{#each purchasedBooks}}

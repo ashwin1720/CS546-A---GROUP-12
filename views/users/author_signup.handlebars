@@ -49,6 +49,9 @@
           {{/if}}
           {{#if pwError}}
           <p class="error">Password should be atleast 6 characters without any spaces.</p>
+          {{#if hasErrors}}
+               <p class="errors"> {{errors}}.</p>
+         {{/if}}
           {{/if}}
           {{#if isEmptyUn}}
           <p class="error">Enter username.</p>

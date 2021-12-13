@@ -38,8 +38,9 @@
     <header class= "aiheader" >
                 <nav class="ainav"> 
                     <div class=" aihrefdiv">
-                        <a href="/customer_index">Home</a>
+                        
                         <ul>
+                            <a class="block" href="/customer_index">Home</a>
                             <a class="block" href="/customer_index/customer_library"> My books</a>
                             <a class="block" href="/customer_index/customer_update_personal_details"> Update Personal Details</a>
                             <a class="block" href="/customer_index/customer_search"> Search for book,author</a>
@@ -65,6 +66,9 @@
                          {{#if nobooks}}
                         <h3>No books to display</h3>
                         {{/if}}
+                         {{#if hasErrors}}
+               <p class="errors"> {{errors}}.</p>
+                         {{/if}}
                     </div>
                 </div>
             </div>

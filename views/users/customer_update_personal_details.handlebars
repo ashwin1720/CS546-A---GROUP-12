@@ -2,37 +2,58 @@
 <main>
 
 
-<p>This is Customer update personal details page</p>
+<h1>This is Customer update personal details page</h1>
 
 <header>
+     
     <nav>   
        
-        <ul>
-           <li>  <a href="/customer_index">Home Page</a> </li> 
-             <a href="/author_logout">Logout</a>
-        </ul>
+    
+        
+           <nav class="ainav"> 
+                    <div class="aihrefdiv">
+                        
+                        <ul>
+                            <a class="block" href="/customer_index">Home</a>
+                           <a class="block" href="/customer_index/customer_library"> My books</a> 
+                            <a class="block" href="/customer_index/customer_update_personal_details"> Update Personal Details</a>  
+                             <a class="block" href="/customer_index/customer_search"> Search for book,author</a> 
+                             <a class="block" href="/customer_index/search_by_category">Search for books by category</a> 
+                             <a class="block" href="/customer_logout">Logout</a> </li> 
+                        </ul>
+                    </div>
+                </nav>
+             {{!-- <a href="/author_logout">Logout</a> --}}
+        
     </nav>
 
 </header>
+<header>
+            <div class="wholeIndex">
+                <div class="boxIndex">
+                    <div class="aibooklist">
 <h4>This Is Current Name</h4>
-<p>{{customerDetails.customerName}}</p>
+<p>{{customerDetails.name}}</p>
 
 <br>
 <br>
 <br>
 
-<h3>
+{{!-- <h3> 
     Update Details Here
-</h3>
+</h3> --}}
 <form action="/customer_index/customer_update_personal_details" method="POST" class="customer_update_personal_details">
 
          <div class="customer_update_personal_details">
+             <h3> 
+                 Update Details Here
+                 </h3>
 
          <label for="customerName">Enter New name </label>
-         <input type="text" name="customerName" placeholder="{{customerDetails.customerName}}" id="customer_name">
+         <input type="text" name="customerName" placeholder="{{customerDetails.name}}" id="customer_name"><br><br>
      
             <label for="password">Password</label> 
-            <input type="password" name="password" placeholder="Should be grater than 4 characters" id="customer_password">
+            <input type="password" name="password" placeholder="Should be greater than 4 characters" id="customer_password">
          </div>
 
          <button type="submit">Change</button>
@@ -43,3 +64,62 @@
         
          </form>
 </main>
+
+
+
+
+
+
+
+
+{{!-- <main>
+
+<header>
+    <div class="headingUpdate">
+<h1>This is author update personal details page</h1></div>
+    <div class="wholeUpdateAuthor">
+    <div class="upperUpdateAuthor">
+    <nav>   
+        <a href="/author_index"></a>
+        <ul class="unorderedListUpdate">
+           <li class="listUpdate">  <a href="/author_index">My books</a> </li> 
+           <li class="listUpdate"> <a href="/author_index/author_create_newbook">Add new book</a></li>
+            <li class="listUpdate"> <a href="/author_index/author_update_personal_details"> Update Personal Details</a></li>
+            <li class="listUpdate"<a href="/author_logout">Logout</a><li>
+        </ul>
+    </nav>
+    </div>
+<div class="bottomUpdateAuthor">
+<h4>This Is Current Name</h4>
+<p class="currentNameAuthor">{{authorsDetails.authorName}}</p>
+
+
+
+<br>
+
+<h3>
+    Update Details Here
+</h3>
+<form action="/author_index/author_update_personal_details" method="POST" class="author_update_personal_details" id="author_update_form">
+
+         <div class="author_update_personal_details">
+
+         <label for="authorName">Enter New name </label>
+         <input type="text" name="authorName" placeholder="{{authorsDetails.authorName}}" id="author_name">
+     
+            <label for="password">Password</label> 
+            <input type="password" name="password" placeholder="Should be greater than 4 characters" id="author_password">
+         </div>
+            <br>
+         <button class="updateButton" type="submit">Change</button>
+         </form>
+          {{#if hasErrors}}
+               <p class="errors"> {{errors}}.</p>
+         {{/if}}
+        
+         <div class="error" id="error" hidden></div>
+        <script src="/public/js/author_upload.js"></script>
+</div>
+    </div>
+    </header>
+</main> --}}

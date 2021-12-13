@@ -79,6 +79,9 @@
 {{#if notString}}
 <p class="error">Either ussername/password not in correct format. Username should be atleast 4 characters and password should be atleast 6 characters both without any spaces.</p>
 {{/if}}
+{{#if already}}
+          <p>Username already taken</p>
+          {{/if}}
 {{#if unError}}
 <p class="error">Username should be atleast 4 characters without any spaces.</p>
 {{/if}}
@@ -91,6 +94,9 @@
 {{#if isEmptyPw}}
 <p class="error">Enter password.</p>
 {{/if}}
+ {{#if hasErrors}}
+               <p class="errors"> {{errors}}.</p>
+         {{/if}}
 </div>
 
 </div>

@@ -1,7 +1,7 @@
 <main>
     <div class="upperIndex">
         <h1 class="titleIndex" id="aip"> This is Author index page</h1>
-        <h3>Hi {{username}}</h3>
+        <h2>Hi {{username}}</h2>
     </div>
     <header class="aiheader">
         <a href="/author_index"></a>
@@ -25,11 +25,16 @@
                 <div class="aibooklist">
 
                 {{#each listofbooks}}
+               <ul>
                     <li class="addedBooks"> <a href="/author_index/author_individual/{{this.filename}}">{{this.bookname}} </a>  </li>
+               </ul>
                 {{/each}}
                 {{#if nobooks}}
                 <p>Please add any books.</p>
                 {{/if}}
+                 {{#if hasErrors}}
+               <p class="errors"> {{errors}}.</p>
+         {{/if}}
                 </div>
             </div>
         </div>
