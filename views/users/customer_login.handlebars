@@ -1,7 +1,8 @@
-<main>
+{{!-- <main>
 
-  <h1>Customer Login Here</h1>
-  <form action="/login" method="POST" class="login-form" id="login-form">
+<a href="/">Go Back To Main Menu</a>
+  <h1 class="heading">Customer Login Here</h1>
+  <form action="/customer_login" method="POST" class="login-form" id="login-form">
     <label for="username">
       Username
       <input type="text" name="username" id="username" placeholder="Enter The Username" class="full-width-input" />
@@ -10,8 +11,8 @@
       Password
       <input type="password" name="password" id="password" placeholder="Enter The Passsword" class="full-width-input" />
     </label>
-    <br><br><br><button type="submit">Submit</button>
-    <br><br><br><button type="reset">Clear</button>
+    <br><br><br><button class="btn" type="submit">Submit</button>
+    <br><br><br><button class="btn" type="reset">Clear</button>
   </form>
 <footer>
   <nav>
@@ -19,16 +20,46 @@
             <li><a href="/customer_signup">Need to register? Click here to sign-up</a></li>
         </ul>
 </nav>
+<div class="error" id="error" hidden></div>
 </footer>
-{{!-- {{#if notString}}
-<p class="error">Either ussername/password not in correct format. Username should be atleast 4 characters and password should be atleast 6 characters both without any spaces.</p>
-{{#if isEmptyUn}}
-<p class="error">Enter username.</p>
-{{/if}}
-{{#if isEmptyPw}}
-<p class="error">Enter password.</p>
-{{/if}}
+
+<script src="/public/js/customer_login.js"></script>
 {{#if hasErrors}}
-<p class="error">Either the username or password is invalid.</p>
-{{/if}} --}}
+<p class="error">{{errors}}</p>
+{{/if}}
+</main> --}}
+
+
+<main>
+  <div class="loginContainer">
+    <div class="columnAuthorLogin">
+      <a id="Main_menu" href="/">Go Back To Main Menu</a>
+      <h1>Customer Login Here</h1>
+      <form action="/customer_login" method="POST" id="login-form">
+        <label for="username">
+          Username
+        <input type="text" name="username" id="username" placeholder="Enter The Username"  />
+        </label>
+        <label for="password">
+          Password
+        <input type="password" name="password" id="password" placeholder="Enter The Passsword" />
+        </label>
+          <br><button class="btn" type="submit">Submit</button>
+          <br><button class="btn" type="reset">Clear</button>
+        <footer>
+          <nav>
+            <ul>
+                <a href="/customer_signup">Need to register? Click here to sign-up</a>
+            </ul>
+          </nav>
+          <div class="error" id="error" hidden></div>
+          {{#if hasErrors}}
+<p class="error">{{errors}}</p>
+{{/if}}
+        </footer>
+      </form>
+    </div>
+  </div>
+  <script src="/public/js/customer_login.js"></script>
+
 </main>

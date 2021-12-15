@@ -24,8 +24,8 @@ app.use(
     name: 'AuthCookie',
     secret: "This is a secret.. shhh don't tell anyone",
     saveUninitialized: false,
-    resave: false,
-    cookie: { maxAge: 60000 }
+    resave: true,
+    cookie: { maxAge: 60000000 }
   })
 );
 
@@ -46,7 +46,7 @@ app.use('/customer_index', (req, res, next) => {
 app.use('/author_index', (req, res, next) => {
   
   if (!req.session.user) {
-    return res.redirect('/');
+    return res.redirect('/author_login');
   } 
    else{
     next();

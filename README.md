@@ -1,5 +1,3 @@
-# CS546-A---GROUP-12
-
 # Online Bookstore
 
 
@@ -74,4 +72,6 @@ npm
 
 - GitHub pages
 - Stack overflow
+
+
 

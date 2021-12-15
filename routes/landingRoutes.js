@@ -1,14 +1,13 @@
 const express = require('express');
+
 const router = express.Router();
-// const bcrypt = require('bcryptjs');
-// const userData = require('../data/users');
-// const saltRounds = 16;
+const xss = require('xss');
 
 router.get('/', async (req, res) => {
     try {
-      if (req.session.user && req.session.user.usertype === "author") {
+      if (xss(req.session.user) && xss(req.session.user.usertype) === "author") {
         return res.redirect('/author_index')
-      }if(req.session.user && req.session.user.usertype === "customer"){
+      }if(xss(req.session.user) && xss(req.session.user.usertype) === "customer"){
         return res.redirect('/customer_index')
       }
       else{

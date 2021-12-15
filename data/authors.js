@@ -2,22 +2,27 @@ const mongoCollections = require('./../config/mongoCollections');
 
 const authors = mongoCollections.authors;
 const books = mongoCollections.books;
-let { ObjectId } = require('mongodb');
+const recents = mongoCollections.recents;
 const bcrypt = require('bcrypt');
 const saltRounds = 16;
 
-async function createUser(username, password){
+async function createUser(username,authorName, password){
     let trueObj = {userInserted: true}
     username=username.trim()
     password=password.trim()
+    authorName = authorName.trim()
+    username =username.toLowerCase()
+
     const authorsColl = await authors();
     const authorsList = await authorsColl.find({}).toArray();
     for(let i=0;i<authorsList.length;i++){
-        if(authorsList[i].username === username) throw 'Error: Author Already Exists.'
+        if(authorsList[i].username === username) 
+        return false;
     }
     const hash = await bcrypt.hash(password, saltRounds);
     let newUser = {
         username: username,
+        authorName:authorName,
         password: hash
     };
     const insertInfo = await authorsColl.insertOne(newUser)
@@ -59,15 +64,15 @@ async function checkUser(username,password){
 
          const userCollection = await authors();
 
-         const userInfo = await  userCollection.findOne({username:username})
+         const userInfo = await  userCollection.findOne({username:usernameLower})
 
          if(userInfo === null) throw 'Either the username or password is invalid'
 
          const userFind = await userCollection .findOne(
             { username : usernameLower },
-              {projection:{username:1 , password:1}}
+              {projection:{username:1 , password:1,authorName:1}}
         );
-
+        
         let compareToMatch = false;
 
         compareToMatch = await bcrypt.compare(password, userFind.password);
@@ -78,6 +83,7 @@ async function checkUser(username,password){
 
           let ret ={}
     ret.authenticated = true
+    ret.authorName = userFind.authorName
 
     return ret
 
@@ -85,9 +91,36 @@ async function checkUser(username,password){
 }
 
 async function createBook(bookname, authorName, authorUserName, price, description, category, filename){
+    bookname=bookname.trim();
 
+    authorName=authorName.trim();
+    authorUserName=authorUserName.trim();
+    description=description.trim();
+    category=category.trim();
+    filename=filename.trim();
+    if(!bookname || !authorName || !authorUserName || !description || !category || !filename) throw 'Invalid data has been passed.'
+    if(typeof(bookname)!='string'|| typeof(authorName)!='string'|| typeof(authorUserName)!='string'|| typeof(description)!='string'|| typeof(category)!='string'|| typeof(filename)!='string') throw 'Invalid data has been passed.'
     revArray = []
+
     const booksColl = await books();
+    const recentsColl = await recents();
+    const recentsList = await recentsColl.find({}).toArray();
+    if(recentsList.length===5){
+        let del_name_book = recentsList[0].filename;
+        recentsColl.deleteOne({"filename": del_name_book})
+        let newrecentBook = {
+            bookname: bookname,
+            filename: filename
+        }
+        const insertrecentsInfo = await recentsColl.insertOne(newrecentBook) 
+    }
+    else{
+        let newrecentBook = {
+            bookname: bookname,
+            filename: filename
+        }
+        const insertrecentsInfo = await recentsColl.insertOne(newrecentBook) 
+    }
     let newBook = {
         bookname: bookname,
         authorName: authorName,
@@ -101,29 +134,44 @@ async function createBook(bookname, authorName, authorUserName, price, descripti
         filename: filename
     };
     const insertInfo = await booksColl.insertOne(newBook)
-    console.log("ronaldo")
     if(insertInfo.insertedCount!== 0){
         const newId= insertInfo.insertedId;
-        // return trueObj;
         return true;
     }
 }
 async function displayBooks(authorusername){
+    authorusername=authorusername.trim();
+    if(!authorusername) throw 'Invalid data has been passed.'
+    if(typeof(authorusername)!='string') throw 'Invalid data has been paased.'
+    authorusername=authorusername.toLowerCase();
+    
     const booksColl = await books();
     const booksList = await booksColl.find({}).toArray();
+    const recentsColl = await recents();
+    const recentsList = await recentsColl.find({}).toArray();
+    let noBooks = "error"
     let bookArray = [];
-    let bookObj = {}
+    
     for(let i=0;i<booksList.length;i++){
         if(booksList[i].authorUserName===authorusername){
+            let bookObj = {}
                     bookObj["filename"]=booksList[i].filename
                     bookObj["bookname"]=booksList[i].bookname
                     bookArray.push(bookObj)
         }
        
     }
+    
+    if(bookArray.length === 0){
+        bookArray.push(noBooks)
+        return bookArray
+    }
     return bookArray
 }
 async function search_book(fname){
+    fname=fname.trim();
+    if(!fname) throw 'File name invalid.'
+    if(typeof(fname)!='string') throw 'Invalid data has been passed.'
     const booksColl = await books();
 
     const booksList = await booksColl.find({}).toArray();
@@ -143,10 +191,86 @@ async function search_book(fname){
 return revObj; 
 }
 
+async function getAuthorDetails(username){
+    username=username.trim()
+    if(!username) throw 'The username is invalid.'
+    if(typeof(username)!='string') throw 'Invalid data has been passed.'
+    username=username.toLowerCase()
+    const userCollection = await authors();
+   
+    
+    const userFind = await userCollection .findOne(
+        { username : username },
+          {projection:{username:1 , password:1,authorName:1}}
+    );
+    
+    return userFind
+}
+
+async function updateAuthorDetails(oldusername,authorName,password){
+
+
+    oldusername=oldusername.trim();
+    authorName=authorName.trim()
+    password=password.trim();
+    if(typeof(oldusername)!='string'||typeof(authorName)!='string'||typeof(password)!='string') throw 'Invalid data has been passed.'
+    const userCollection = await authors()
+
+
+    function hasWhiteSpace(s) {
+        return /\s/g.test(s);
+       }
+
+    if(authorName){
+        if(hasWhiteSpace(authorName)){
+            throw 'name should not contain spaces'
+           } 
+           let oldusernameLower = oldusername.toLowerCase();
+    
+    let newAuthorDetails = {
+       authorName:authorName,
+}
+    const updatedAuthorInfo = await userCollection.updateOne(
+        { username: oldusernameLower },
+        { $set: newAuthorDetails}
+      );
+      if (updatedAuthorInfo.modifiedCount === 0) {
+        throw 'could not update author details successfully';
+      }
+
+    }
+    if(password){
+        if(hasWhiteSpace(password)){
+            throw 'password should not contain spaces'
+           } 
+           if(password.length<6){
+            throw 'password should be atleast 6 characters'
+              }
+              const hashpassword = await bcrypt.hash(password, saltRounds);
+              let oldusernameLower = oldusername.toLowerCase();
+    
+    let newAuthorDetails = {
+       password:hashpassword
+}
+    const updatedAuthorInfo = await userCollection.updateOne(
+        { username: oldusernameLower },
+        { $set: newAuthorDetails}
+      );
+      if (updatedAuthorInfo.modifiedCount === 0) {
+        throw 'could not update author details successfully';
+      }
+
+    }
+      let ret ={}
+      ret.authenticated = true
+      return ret
+ }
 module.exports = {
     createUser,
     checkUser,
     createBook,
     displayBooks,
-    search_book
+    search_book,
+    getAuthorDetails,
+    updateAuthorDetails
 }

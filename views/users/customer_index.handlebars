@@ -1,0 +1,71 @@
+{{!-- <p>This is Author index page</p>
+<p>{{username}}</p>
+<header>
+    <nav>   
+        <a href="/author_index"></a>
+        <ul>
+            <li> <a href="/customer_index/customer_library">My books</a> </li> 
+            <li> <a href="/customer_index/customer_update_personal_details"> Update Personal Details</a></li>
+            <li>  <a href="/customer_index/customer_search">Search for book,author or category</a></li>
+            <li>  <a href="/customer_index/search_by_category">Search for books by category</a></li>
+        </ul>
+        </nav>
+        </header>
+        {{#if books}}
+    <h2>Recently Added !!!</h2>
+    {{#each listofrecent}}
+    <li> <a href="/customer_index/individual_book_page/{{this.filename}}">{{this.bookname}} </a>  </li>
+    {{/each}}
+    <h2>
+        List Of All Books
+    </h2>
+    {{#each listofbooks}}
+    <li> <a href="/customer_index/individual_book_page/{{this.filename}}">{{this.bookname}} </a>  </li>
+    {{/each}}
+
+    {{/if}}
+    
+    {{#if nobooks}}
+    <h3>No books to display</h3>
+    {{/if}}
+
+ --}}
+<main>
+    <div class="upperIndex">
+        <h1 class="titleIndex">This is Customer index page</h1>
+        <h2>Hi  {{ username }}</h2>
+    </div>
+    <header class= "aiheader" >
+                <nav class="ainav"> 
+                    <div class=" aihrefdiv">
+                        <a href="/customer_index">Home</a>
+                        <ul>
+                            <a class="block" href="/customer_index/customer_library"> My books</a>
+                            <a class="block" href="/customer_index/customer_update_personal_details"> Update Personal Details</a>
+                            <a class="block" href="/customer_index/customer_search"> Search for book,author</a>
+                            <a class="block" href="/customer_index/search_by_category">Search for books by category</a>
+                            <a class="block" href="/customer_logout">Logout</a>
+                        </ul>
+                    </div>
+                </nav>
+    </header>
+            <div class="wholeIndex">
+                <div class="boxIndex">
+                    <div class="aibooklist">
+                        <h3>Recently Added !!!</h3>
+                        {{#if books}}
+                        {{#each listofrecent}}
+                         <a class="listIndex" href="/customer_index/individual_book_page/{{this.filename}}"><br>{{this.bookname}} </a>  
+                        {{/each}}
+                        <h2>List Of All Books</h2>
+                        {{#each listofbooks}}
+                        <a class="listIndex" href="/customer_index/individual_book_page/{{this.filename}}">{{this.bookname}} </a>  
+                        {{/each}}
+                        {{/if}}
+                         {{#if nobooks}}
+                        <h3>No books to display</h3>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+</main>

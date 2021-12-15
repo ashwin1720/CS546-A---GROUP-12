@@ -1,7 +1,8 @@
 
+
 <div class="loginContainer">
       <div class="columnAuthorLogin">
-
+         <a href="/">Go Back To Main Menu</a>
          <h1>Author Login</h1>
          <form action="/author_login" method="POST" class="loginForm">
 
@@ -10,7 +11,7 @@
          <input type="text" name="username" placeholder="Enter a User Name" id="author_username" required>
       
             <label for="password">Password</label> 
-            <input type="password" name="password" placeholder="Should be grater than 4 characters" id="author_password" required>
+            <input type="password" name="password" placeholder="Enter The Password" id="author_password" required>
          </div>
 
          <button type="submit">LOGIN</button>
@@ -20,10 +21,11 @@
          {{/if}}
          <footer>
             <a href="/author_signup">Need to register as an Author? Click here to sign-up</a>
+            <div class="error" id="error" hidden></div>
          </footer>
          </form>
 
 
       </div>
-         
+         <script src="/public/js/author_login.js"></script>
 </div>

@@ -1,4 +1,145 @@
-* {
+/* * {
+	box-sizing: border-box;
+}
+.h1Forlanding{
+    text-align:center;
+    color: white;
+    font-weight: bolder;
+}
+.introductionP{
+    color: white;
+   text-align: center;
+    text-align-last: center;
+}
+.landingContainer{
+  background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+  background-size: 100% 100%;
+   height: 100vh;
+  text-align: center;
+  justify-content: center;
+}
+.all_urls ul {
+display: inline-block;
+text-align: left;
+font-size: larger;
+font-weight: bolder;
+}
+/* .loginContainer{
+    background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+    background-size: 100% 100%;
+     height: 100vh;
+    text-align: center;
+    justify-content: center;
+} 
+.loginContainer{
+    background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+    background-size: 100% 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.columnAuthorLogin{
+   align-items: center;
+   text-align: center;
+   background-color:wheat;
+   opacity:0.9;
+   width: 450px;
+   box-shadow: rgba(0,0,0, 0.5) 0 50px 50px;
+   padding: 15px 15px;
+  
+}
+.columnAuthorLogin form{
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+ }
+.columnAuthorLogin form input[type="text"],
+.columnAuthorLogin form input[type="password"]{
+   text-align:center;
+   font-size: 20px;
+   margin: 10px ;
+   border: none;
+   margin-left: auto;
+   margin-right: auto;
+   border-radius: 5px;
+   height: 40px;
+   width: 350px;
+   opacity: 0.99;
+   font-weight: 400;
+ 
+}
+.authorLoginLabels label{
+    color:black;
+    font-weight: bolder;
+}
+.columnAuthorLogin a{
+    font-weight: bolder;
+    color: black;
+}
+.columnAuthorLogin button{
+    background-color: brown;
+    font-weight: bolder;
+    font-size: larger;
+    color: whitesmoke;
+}
+.errors{
+    color: red;
+}
+.heading{
+    text-align:center;
+    background-color: brown;
+       font-family: Georgia, 'Times New Roman', Times, serif;
+       margin: 10px ;
+       border: none;
+       margin-left: auto;
+       margin-right: auto;
+       border-radius: 10px;
+       height: 40px;
+       width: 350px;
+       opacity: 0.99; 
+       font-weight: bolder;
+       font-size: larger;
+       background-color: brown;
+    
+    
+    color: whitesmoke;
+        
+     }
+     .Middle{
+        text-align:center;
+        
+           font-family: Georgia, 'Times New Roman', Times, serif;
+           margin: 10px ;
+           border: none;
+           margin-left: auto;
+           margin-right: auto;
+           border-radius: 10px;
+           height: 40px;
+           width: 350px;
+           opacity: 0.99; 
+           font-weight: bolder;
+           font-size: larger;
+           background-color: brown;
+           color: rgb(32, 31, 31);
+           align-items: center;
+   text-align: center;
+   /* background-color:wheat; 
+   opacity:0.9;
+   /* width: 450px; 
+   background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+   background-size: 100% 100%;
+   
+   
+  /* width: 300px;
+  height: 300px; */
+   /* text-align: center; 
+   
+     }
+ */
+
+ * {
 	box-sizing: border-box;
 }
 
@@ -93,9 +234,475 @@ font-weight: bolder;
     font-weight: bolder;
     font-size: larger;
     color: whitesmoke;
-
 }
+
+.columnAuthorLogin button:hover{
+    background-color: rgb(177, 94, 55)
+}
+
+
+
+
+.signupContainer{
+    background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+    background-size: 100% 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.columnAuthorSignup{
+   align-items: center;
+   text-align: center;
+   background-color:wheat;
+   opacity:0.9;
+   width: 450px;
+   box-shadow: rgba(0,0,0, 0.5) 0 50px 50px;
+   padding: 15px 15px;
+  
+}
+.columnAuthorSignup form{
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+ }
+.columnAuthorSignup form input[type="text"],
+.columnAuthorSignup form input[type="password"]{
+   text-align:center;
+   font-size: 20px;
+   margin: 10px ;
+   border: none;
+   margin-left: auto;
+   margin-right: auto;
+   border-radius: 5px;
+   height: 40px;
+   width: 350px;
+   opacity: 0.99;
+   font-weight: 400;
+ 
+}
+
+.authorSignUpLabels label{
+    color:black;
+    font-weight: bolder;
+}
+
+.columnAuthorSignup a{
+    font-weight: bolder;
+    color: black;
+}
+
+.columnAuthorSignup button{
+    background-color: brown;
+    font-weight: bolder;
+    font-size: larger;
+    color: whitesmoke;
+}
+
+.columnAuthorSignup button:hover{
+    background-color: rgb(177, 94, 55)
+}
+
+
 
 .errors{
     color: red;
 }
+
+
+
+.authorLoginLabels label{
+    color:black;
+    font-weight: bolder;
+}
+
+.columnAuthorLogin a{
+    font-weight: bolder;
+    color: black;
+}
+
+.columnAuthorLogin button{
+    background-color: brown;
+    font-weight: bolder;
+    font-size: larger;
+    color: whitesmoke;
+}
+
+.columnAuthorLogin button:hover{
+    background-color: rgb(177, 94, 55)
+}
+
+
+
+.loginContainer{
+    background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+    background-size: 100% 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.columnCustomerLogin{
+   align-items: center;
+   text-align: center;
+   background-color:wheat;
+   opacity:0.9;
+   width: 450px;
+   box-shadow: rgba(0,0,0, 0.5) 0 50px 50px;
+   padding: 15px 15px;
+  
+}
+.columnCustomerLogin form{
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+ }
+.columnCustomerLogin form input[type="text"],
+.columnCustomerLogin form input[type="password"]{
+   text-align:center;
+   font-size: 20px;
+   margin: 10px ;
+   border: none;
+   margin-left: auto;
+   margin-right: auto;
+   border-radius: 5px;
+   height: 40px;
+   width: 350px;
+   opacity: 0.99;
+   font-weight: 400;
+ 
+}
+
+.customerLoginLabels label{
+    color:black;
+    font-weight: bolder;
+}
+
+.columnCustomerLogin a{
+    font-weight: bolder;
+    color: black;
+}
+
+.columnCustomerLogin button{
+    background-color: brown;
+    font-weight: bolder;
+    font-size: larger;
+    color: whitesmoke;
+}
+
+.columnCustomerLogin button:hover{
+    background-color: rgb(177, 94, 55)
+}
+
+
+
+.SignupContainer{
+    background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+    background-size: 100% 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+.columnCustomerSignup{
+   align-items: center;
+   text-align: center;
+   background-color:wheat;
+   opacity:0.9;
+   width: 450px;
+   box-shadow: rgba(0,0,0, 0.5) 0 50px 50px;
+   padding: 15px 15px;
+  
+}
+.columnCustomerSignup form{
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+ }
+.columnCustomerSignup form input[type="text"],
+.columnCustomerSignup form input[type="password"]{
+   text-align:center;
+   font-size: 20px;
+   margin: 10px ;
+   border: none;
+   margin-left: auto;
+   margin-right: auto;
+   border-radius: 5px;
+   height: 40px;
+   width: 350px;
+   opacity: 0.99;
+   font-weight: 400;
+ 
+}
+
+.customerSignupLabels label{
+    color:black;
+    font-weight: bolder;
+}
+
+.columnCustomerSignup a{
+    font-weight: bolder;
+    color: black;
+}
+
+.columnCustomerSignup button{
+    background-color: brown;
+    font-weight: bolder;
+    font-size: larger;
+    color: whitesmoke;
+}
+
+.columnCustomerSignup button:hover{
+    background-color: rgb(177, 94, 55)
+}
+
+
+  .wholeIndex{
+    background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    display: flex;
+  }
+
+  .boxIndex{
+    
+        align-items: center;
+        text-align: center;
+        background-color:wheat;
+        opacity:0.9;
+        width: 450px;
+        box-shadow: rgba(0,0,0, 0.5) 0 50px 50px;
+        padding: 15px 15px;
+  }
+.upperIndex{
+    text-align: center;
+    background-color: burlywood;
+    opacity:0.99;
+}
+
+
+.titleIndex{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 300;
+}
+
+h3{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.wholeListIndex{
+    list-style-type: none;
+}
+  .listIndex:link {  display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;}
+  .listIndex:visited { text-align: center;color:#ff0000;}
+  .listIndex:hover {   background-color: #555;
+    color: white;}
+      
+
+.addedBooks{
+    list-style-type: none;
+}
+.UnorderedUpload{
+    overflow: hidden;
+    top: 0;
+    position: fixed;
+    background-color:wheat;
+    opacity:0.9;
+    width: 100%;
+    box-shadow: rgba(0,0,0, 0.5) 0 50px 50px;
+    display: inline;
+    /* padding: 15px 15px; */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.uploadLi{
+    display: block;
+color: #000;
+padding: 8px 16px;
+text-decoration: none;
+list-style-type:none;
+float: left;
+}
+
+
+.uploadLi:hover { background-color: #555;
+    color: white;}
+
+/* .topnav {
+    overflow: hidden;
+    background-color:wheat;
+    display:block;
+    list-style-type:none;
+  }
+  
+  .topnav a {
+    float: left;
+  color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  .topnav a:hover {
+    background-color:brown;
+    color: black;
+  }
+  .topnav a.active {
+    background-color: brown;
+    color: rgb(192, 155, 155);
+  } */
+.headingUpload{
+    text-align: center;
+    top:10;
+    color: white;
+    /* justify-content: first baseline; */
+}
+
+.uploadContainer{
+    align-items: center;
+    text-align: center;
+    background-color:wheat;
+    opacity:0.9;
+    width: 450px;
+    box-shadow: rgba(0,0,0, 0.5) 0 10px 10px;
+    padding: 15px 15px;
+    justify-content: center;
+}
+
+.bottomUpload{
+    background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.labelUpload{
+    color:black;
+    font-weight: bolder;
+}
+.buttonUploadForm {
+    background-color: brown;
+    font-weight: bolder;
+    font-size: larger;
+    color: whitesmoke;
+}
+.buttonUploadForm:hover{
+    background-color: rgb(177, 94, 55);
+}
+
+
+.headingUpdate{
+    font-family: 'Times New Roman', Times, serif;
+    background-color: wheat;
+    text-align: center;
+}
+.wholeUpdateAuthor{
+    background-image:url('../images/shutterstock_509582812-e1574100998595-scaled.jpeg') ;
+    background-size: 100% 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.unorderedListUpdate{
+    overflow: hidden;
+    top: 55px;
+    position: fixed;
+    background-color:wheat;
+    opacity:0.9;
+    width: 100%;
+    box-shadow: rgba(0,0,0, 0.5) 0 50px 50px;
+    display: inline;
+    /* padding: 15px 15px; */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+/* .upperUpdateAuthor{
+    float:left;   
+    text-align: center;
+    background-color:wheat;
+    opacity:0.9;
+    width: 450px;
+    box-shadow: rgba(0,0,0, 0.5) 0 50px 50px;
+    padding: 15px 15px;
+} */
+
+.bottomUpdateAuthor{
+    align-items: center;
+    text-align: center;
+    background-color:wheat;
+    opacity:0.9;
+    box-shadow: rgba(0,0,0, 0.5) 0 50px 50px;
+    padding: 20px 20px;
+
+   font-size: 20px;
+   margin: 10px ;
+   border: none;
+   margin-left: auto;
+   margin-right: auto;
+   border-radius: 5px;
+   height: 400px;
+   width: 350px;
+   font-weight: 400;
+}
+
+.listUpdate{display: block;
+color: #000;
+padding: 8px 16px;
+text-decoration: none;
+list-style-type:none;
+float: left;
+
+}
+
+.listUpdate:hover { background-color: #555;
+    color: white;}
+
+.updateButton{
+    background-color: brown;
+    font-weight: bolder;
+    font-size: larger;
+    color: whitesmoke;
+}
+
+.updateButton:hover{
+    background-color: rgb(177, 94, 55);
+}
+
+.currentNameAuthor{
+    color: brown;
+    font-weight: bolder;
+}
+
+.block:link {
+    background-color: rgb(237, 241, 241);
+    color: rgb(194, 9, 9);
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+ .block:hover, .block:active {
+    background-color: rgb(0, 0, 0);
+  }

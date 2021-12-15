@@ -1,69 +1,59 @@
 const express = require('express');
 
+const xss = require('xss');
 const router = express.Router();
-//const data = require('../data');
-//authorData=data.authors;
 const data = require('../data/authors');
-
-const upload = require('express-handlebars')
-
-//router.use(upload())
-
+const { ObjectId, ObjectID } = require('bson');
 router.get('/', async (req, res) => {
     try {
-        if(!req.session.user && req.session.user.usertype ==="author"){
+        if(!xss(req.session.user) && xss(req.session.user.usertype) ==="author"){
             return res.render('users/author_login',{titleName:'Author Login'})
-          }if(req.session.user && req.session.user.usertype ==="author"){
+          }if(xss(req.session.user) && xss(req.session.user.usertype) ==="author"){
             return res.render('users/author_upload', {titleName: 'Author Upload'})
           }
-          // return res.render('users/author_upload', {titleName: 'Author Upload'})
      
     } catch (error) {
-      res.status(500).json({error:error})
+      res.status(500).render('users/error')
     }
   });
 router.post('/', async (req, res) => {
     try {
-
-        console.log(req.body)
-        let details=req.body;
-        console.log(req.body);
-        let bookname = details["bookname"]
-        let price = details["price"]
-        let description = details["description"]
-        let category = details["category"]
-        let authorname="abc"
-        let authorusername = req.session.user.username
+        let bookname = xss(req.body.bookname.trim())
+        let price = xss(req.body.price)
+        let description = xss(req.body.description.trim())
+        let category = xss(req.body.category.trim())
+        let authorname=xss(req.session.user.authorName.trim());
+        let authorusername = xss(req.session.user.username.trim())
+        if(!bookname || !authorname || !authorusername || !description || !category) throw 'Invalid data has been passed.'
+    if(typeof(bookname)!='string'|| typeof(authorname)!='string'|| typeof(authorusername)!='string'|| typeof(description)!='string'|| typeof(category)!='string') throw 'Invalid data has been passed.'
 
         if(req.files){
-            //console.log(req.files)
             var file = req.files.file;
-            var filename = file.name;
-            //filename = filename+authorusername;
-            console.log(filename);
-            let newfilename = filename.slice(0, -4)
-            console.log(newfilename)
-            newfilename = newfilename+authorusername+".pdf"
-            file.mv('./uploads/'+newfilename, function(err){
+            var objectId = new ObjectID();
+            newfilename = objectId+".pdf"
+            newfilename=xss(newfilename)
+            file.mv('./public/uploads/'+newfilename,async function(err){
                 if(err){
                     res.render('users/error')
                 }
                 else{
-                    console.log("Cristiano")
-                    let bool = data.createBook(bookname, authorname, authorusername, price, description, category, newfilename)
-                    console.log(bool)
-                    res.redirect('/author_index')
+                    let bool = await data.createBook(bookname, authorname, authorusername, price, description, category, newfilename)
+
+                    if (xss(req.session.user) && xss(req.session.user.usertype) === "author") {
+                      return res.redirect('/author_index')
+                    }
                 }
             })
         }
         
     } catch (e) {
       console.log(e)
-      res.status(500).render('users/error');
+      res.status(500).render('users/author_upload', {hasErrors:true, errors:e});
       return;
     
     }
 
   });
+
   module.exports = router;
 

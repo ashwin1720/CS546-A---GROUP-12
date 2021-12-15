@@ -1,13 +1,51 @@
-<p>This is author_update_personal_details page</p>
+<main>
 
 <header>
+    <div class="headingUpdate">
+<h1>This is author update personal details page</h1></div>
+    <div class="wholeUpdateAuthor">
+    <div class="upperUpdateAuthor">
     <nav>   
         <a href="/author_index"></a>
-        <ul>
-           <li>  <a href="/author_index">My books</a> </li> 
-           <li> <a href="/author_index/author_create_newbook">Add new book</a></li>
-            <li> <a href="/author_index/author_update_personal_details"> Update Personal Details</a></li>
+        <ul class="unorderedListUpdate">
+           <li class="listUpdate">  <a href="/author_index">My books</a> </li> 
+           <li class="listUpdate"> <a href="/author_index/author_create_newbook">Add new book</a></li>
+            <li class="listUpdate"> <a href="/author_index/author_update_personal_details"> Update Personal Details</a></li>
+            <li class="listUpdate"<a href="/author_logout">Logout</a><li>
         </ul>
     </nav>
+    </div>
+<div class="bottomUpdateAuthor">
+<h4>This Is Current Name</h4>
+<p class="currentNameAuthor">{{authorsDetails.authorName}}</p>
 
-</header>
+
+
+<br>
+
+<h3>
+    Update Details Here
+</h3>
+<form action="/author_index/author_update_personal_details" method="POST" class="author_update_personal_details" id="author_update_form">
+
+         <div class="author_update_personal_details">
+
+         <label for="authorName">Enter New name </label>
+         <input type="text" name="authorName" placeholder="{{authorsDetails.authorName}}" id="author_name">
+     
+            <label for="password">Password</label> 
+            <input type="password" name="password" placeholder="Should be greater than 4 characters" id="author_password">
+         </div>
+            <br>
+         <button class="updateButton" type="submit">Change</button>
+         </form>
+          {{#if hasErrors}}
+               <p class="errors"> {{errors}}.</p>
+         {{/if}}
+        
+         <div class="error" id="error" hidden></div>
+        <script src="/public/js/author_upload.js"></script>
+</div>
+    </div>
+    </header>
+</main>
